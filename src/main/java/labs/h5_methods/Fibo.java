@@ -24,11 +24,24 @@ public class Fibo {
             fTwo = sum;
             sum = fOne + fTwo;
         }
+        System.out.println();
         return fTwo;
     }
 
     public float goldenRatio(int n) {
         return (float) run(n) / run(n - 1);
+    }
+
+    private int fiboRec(int n) {
+        if (n <= 2) { return 1; }
+        return fiboRec(n - 1) + fiboRec(n - 2);
+    }
+
+    public int printFiboRec(int n) {
+        for (int i = 1; i <= n; i++) {
+            System.out.print(fiboRec(i) + " ");
+        }
+        return fiboRec(n);
     }
 
 }

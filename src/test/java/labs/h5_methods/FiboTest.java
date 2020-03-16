@@ -59,4 +59,10 @@ public class FiboTest {
         gr = fib.goldenRatio(n);
         assertThat(gr, anyOf(lessThan(1.6f), greaterThan(1.7f)));
     }
+
+    @Test
+    void testFiboRec() {
+        int run = fib.printFiboRec(6);
+        assertThat(run, is(8));
+    }
 }
