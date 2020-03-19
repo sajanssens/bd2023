@@ -12,7 +12,7 @@ public class PersonTest {
         System.out.println(p.getGender());
         p.setGender(Gender.MALE);
         System.out.println(p.getGender());
-        p.birthday();
+        p.haveBirthday();
         System.out.println(p.getAge());
         System.out.println(Person.numberOfPossibleGenders);
     }
@@ -20,7 +20,7 @@ public class PersonTest {
     @Test
     void testOldPerson() {
         Person p = new Person("Jan", 129);
-        p.birthday();
-        assertThrows(PersonDiedException.class, p::birthday);
+        p.haveBirthday();
+        assertThrows(PersonDiedException.class, p::haveBirthday);
     }
 }

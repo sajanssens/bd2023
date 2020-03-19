@@ -5,7 +5,7 @@ public class Person {
     private int age;
     private Gender gender;
 
-    public static final int numberOfPossibleGenders = 3;
+    public static final int numberOfPossibleGenders = Gender.values().length;
 
     public Person(String name, int age) {
         this.name = name;
@@ -17,7 +17,7 @@ public class Person {
         this.gender = gender;
     }
 
-    public void birthday() {
+    public void haveBirthday() {
         if (this.age >= 130) throw new PersonDiedException();
         this.age++;
     }
