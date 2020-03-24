@@ -22,7 +22,7 @@
 
     <Loggers>
 
-        <Logger name="examples.logging" additivity="true">
+        <Logger name="java.examples.logging" additivity="true">
             <appender-ref ref="fileLogger" level="error" />
         </Logger>
 
