@@ -11,13 +11,18 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit-version>5.3.0</junit-version>
+        <pitest-maven-version>1.4.2</pitest-maven-version>
+        <maven-surefire-plugin-version>2.22.0</maven-surefire-plugin-version>
+        <pitest-junit5-plugin-version>0.7</pitest-junit5-plugin-version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.1</version>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -26,6 +31,19 @@
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-runner</artifactId>
             <version>1.4.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.15.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+            <version>2.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -47,12 +65,12 @@
         </dependency>
 
         <!-- Instead of Thread.sleep -->
-        <dependency>
-            <groupId>org.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
-            <version>3.1.6</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+        <!--            <groupId>org.awaitility</groupId>-->
+        <!--            <artifactId>awaitility</artifactId>-->
+        <!--            <version>3.1.6</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
     </dependencies>
 
 
@@ -61,19 +79,28 @@
             <plugin>
                 <groupId>org.pitest</groupId>
                 <artifactId>pitest-maven</artifactId>
-                <version>1.5.0</version>
+                <version>${pitest-maven-version}</version>
                 <configuration>
-                    <targetClasses><param>unittesting*</param></targetClasses>
-                    <targetTests><param>unittesting*</param></targetTests>
+                    <targetClasses>
+                        <param>unittesting*</param>
+                    </targetClasses>
+                    <targetTests>
+                        <param>unittesting*</param>
+                    </targetTests>
                 </configuration>
                 <dependencies>
                     <!-- to work with junit5, include: -->
                     <dependency>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-junit5-plugin</artifactId>
-                        <version>0.7</version>
+                        <version>${pitest-junit5-plugin-version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
             </plugin>
         </plugins>
     </build>
