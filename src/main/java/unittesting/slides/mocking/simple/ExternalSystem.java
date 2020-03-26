@@ -6,7 +6,7 @@ public class ExternalSystem {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-
+            System.err.println(e);
         }
         return "hello from database";
     }

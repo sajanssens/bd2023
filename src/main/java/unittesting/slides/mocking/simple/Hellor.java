@@ -5,8 +5,7 @@ public class Hellor {
     private ExternalSystem externalSystem = new ExternalSystem();
 
     public String hello() {
-        String message = externalSystem.get();
-        return message;
+        return externalSystem.get();
     }
 
     public String hello(int i) {
