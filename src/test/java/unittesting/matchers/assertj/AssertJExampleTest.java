@@ -17,7 +17,8 @@ public class AssertJExampleTest {
     void testStringArrayList() {
         List<String> abc = asList("a", "b", "c");
 
-        assertThat(abc).hasSize(3)
+        assertThat(abc)
+                .hasSize(3)
                 .contains("a")
                 .containsAnyOf("b")
                 .containsAnyOf("a", "b", "c", "d")
