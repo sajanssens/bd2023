@@ -7,6 +7,10 @@ public class Brutus {
         return hello.hello();
     }
 
+    public String bruter(int i) {
+        return hello.hello(i * 2);
+    }
+
     public void setHello(Hellor hello) {
         this.hello = hello;
     }

@@ -8,4 +8,8 @@ public class Hellor {
         String message = externalSystem.get();
         return message;
     }
+
+    public String hello(int i) {
+        return externalSystem.get() + i;
+    }
 }
