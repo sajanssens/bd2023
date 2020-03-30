@@ -46,7 +46,7 @@ class CardTest {
         // Then
         assertAll(
                 () -> assertTrue(actualResult1),
-                () -> assertEquals(500, actualResult2),
+                () -> assertEquals(550, actualResult2),
                 () -> assertFalse(actualResult3)
         );
     }
