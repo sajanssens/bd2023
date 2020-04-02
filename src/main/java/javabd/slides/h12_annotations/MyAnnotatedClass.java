@@ -17,4 +17,10 @@ public class MyAnnotatedClass {
     public void someOtherMethod() {
         System.out.println("someOtherMethod is called");
     }
+
+    @MyAnnotation(val = true)
+    public void someOtherMethod2() {
+
+    }
+
 }
