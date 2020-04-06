@@ -18,7 +18,7 @@ public class RegularCard extends Card {
     @Override
     public boolean pay(int amount) {
         boolean canPay;
-        if(getCredit() >= amount) {
+        if (getCredit() >= amount) {
             canPay = true;
             setCredit(getCredit() - amount);
         } else {

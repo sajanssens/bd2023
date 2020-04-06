@@ -19,7 +19,7 @@ public class MyAnnotatedClass {
     }
 
     @MyAnnotation(val = true)
-    public void someOtherMethod2() {
+    public void myAnnotationAnnotatedMethod() {
 
     }
 

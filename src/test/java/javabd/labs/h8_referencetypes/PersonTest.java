@@ -47,16 +47,16 @@ class PersonTest {
 
         Method[] declaredMethods = Person.class.getDeclaredMethods();
         for (Method method : declaredMethods) {
-            System.out.println(method.getName());
+            System.out.println("method: " + method.getName());
             Annotation[] declaredAnnotations = method.getAnnotations();
             for (Annotation declaredAnnotation : declaredAnnotations) {
-                System.out.println(declaredAnnotation.toString());
+                System.out.println("    annotation: " + declaredAnnotation.toString());
             }
         }
 
         Field[] declaredFields = Person.class.getDeclaredFields();
         for (Field f : declaredFields) {
-            System.out.println(f.getName());
+            System.out.println("field: " + f.getName());
         }
     }
 }

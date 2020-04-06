@@ -76,7 +76,7 @@ public class NewAssertionsInJUnit5 {
         Student student = new Student(1, "Johan", "johan@email.com");
 
         assumeFalse(students == null);
-        assumeTrue(students.size() < 0);
+        // assumeTrue(students.size() < 0);
 
         assumingThat(students.contains(student),
                 () -> assertTrue(students.size() > 1));
