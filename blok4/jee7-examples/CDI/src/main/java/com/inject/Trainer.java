@@ -1,31 +1,34 @@
 package com.inject;
 
+// In Java 14:
+// public record Trainer(long id, String name){}
+
 public class Trainer {
 
-	private long id;
-	
-	private String name;	
+    private long id;
 
-	public Trainer(long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}
+    private String name;
 
-	public long getId() {
-		return id;
-	}
+    public Trainer(long id, String name) {
+        super();
+        this.id = id;
+        this.name = name;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}		
-	
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }
