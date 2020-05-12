@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+    <!-- Enable features. Full list of features: https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_feat.html-->
+    <featureManager>
+        <feature>webProfile-7.0</feature>
+        <feature>localConnector-1.0</feature>
+    </featureManager>
+
+    <dataSource id="DefaultDataSource" jndiName="jdbc/HSQLDBDataSource">
+        <jdbcDriver libraryRef="HSQLDBJDBCLib"/>
+        <properties URL="jdbc:hsqldb:mem:test" user="sa" password=""/>
+    </dataSource>
+
+    <library id="HSQLDBJDBCLib">
+        <fileset dir="${wlp.install.dir}/usr/shared/resources" includes="hsqldb.jar"/>
+    </library>
+
+</server>

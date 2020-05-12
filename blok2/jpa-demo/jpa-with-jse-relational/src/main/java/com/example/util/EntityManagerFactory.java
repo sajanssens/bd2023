@@ -10,6 +10,6 @@ public final class EntityManagerFactory {
     private static EntityManager emH2 = Persistence.createEntityManagerFactory("ContactServiceH2").createEntityManager();
     private static EntityManager emMySQL = Persistence.createEntityManagerFactory("ContactServiceMySQL").createEntityManager();
 
-    public static EntityManager em = emH2;
+    public static EntityManager em = emMySQL;
 
 }

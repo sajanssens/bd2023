@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.infosupport</groupId>
+    <artifactId>cdi-se</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!--JSE so not a jee project...-->
+    <!--<parent>
+        <groupId>com.infosupport</groupId>
+        <artifactId>jee7-examples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>-->
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4j.version>2.0.0-alpha0</slf4j.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <junit.version>4.12</junit.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <!-- See for versions: https://weld.cdi-spec.org/documentation/#9 -->
+            <version>2.4.8.Final</version>       <!--contains CDI1.2-->
+            <!--<version>3.1.2.Final</version>--><!--contains CDI2.0-->
+        </dependency>
+        <!-- If you want to use another CDI-version than Weld uses, use: -->
+        <!--
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.2</version>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+    </dependencies>
+</project>

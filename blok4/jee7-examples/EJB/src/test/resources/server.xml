@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+
+    <!-- Enable features -->
+    <!-- Full list of features: https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_feat.html -->
+    <featureManager>
+        <feature>webProfile-7.0</feature>
+        <feature>ejbRemote-3.2</feature>
+        <feature>localConnector-1.0</feature><!--For Arquillian -->
+    </featureManager>
+
+    <!-- keystore and basicRegistry are used to improve startup-->
+    <keyStore id="defaultKeyStore" password="0p3nL1b3ry"/>
+
+    <basicRegistry id="basic" realm="ibm/api">
+        <user name="guest" password="0p3nL1b3ry"/>
+    </basicRegistry>
+
+</server>

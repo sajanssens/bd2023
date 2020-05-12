@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.infosupport</groupId>
+    <artifactId>JAXRSBasic</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <parent>
+        <groupId>com.infosupport</groupId>
+        <artifactId>jee7-examples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.openliberty.arquillian</groupId>
+            <artifactId>arquillian-liberty-managed</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.phillip-kruger</groupId>
+            <artifactId>apiee-core</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- To run admincenter use the following commands in the application directory: -->
+    <!-- mvn liberty:create-server creates the server -->
+    <!-- mvn liberty:install-feature -->
+    <!-- mvn liberty:start -->
+    <!-- Navigate to http://localhost:9080/adminCenter/ -->
+    <!-- ... -->
+
+    <!-- To generate and view swagger-ui:
+         Package and deploy the war and start the appserver.
+         Navigate to http://localhost:9080/JAXRSBasic/resources/apiee/
+     -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Liberty server to run test against -->
+                    <!-- Use IBM's liberty in this case, since this one contains the adminCenter, to demonstrate. -->
+                    <assemblyArtifact>
+                        <groupId>com.ibm.websphere.appserver.runtime</groupId>
+                        <artifactId>wlp-javaee7</artifactId>
+                        <version>19.0.0.9</version>
+                        <type>zip</type>
+                    </assemblyArtifact>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install-feature</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>install-feature</goal>
+                        </goals>
+                        <configuration>
+                            <features>
+                                <acceptLicense>true</acceptLicense>
+                                <feature>adminCenter-1.0</feature>
+                            </features>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>com.github.phillip-kruger</groupId>
+                            <artifactId>apiee-core</artifactId>
+                            <version>1.0.8</version>
+                            <type>jar</type>
+                            <overWrite>false</overWrite>
+                            <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources
+                            </outputDirectory>
+                            <destFileName>apiee.jar</destFileName>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

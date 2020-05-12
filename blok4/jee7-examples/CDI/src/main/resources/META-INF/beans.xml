@@ -1,0 +1,8 @@
+<beans bean-discovery-mode="all">
+    <interceptors>
+        <class>com.interceptor.MethodDurationInterceptor</class>
+    </interceptors>
+    <decorators>
+        <class>com.decorator.GreetingDecorator</class>
+    </decorators>
+</beans>

@@ -22,7 +22,8 @@
 	<modules>
 		<module>blok1</module>
 		<module>blok2</module>
-	</modules>
+        <module>blok4</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>

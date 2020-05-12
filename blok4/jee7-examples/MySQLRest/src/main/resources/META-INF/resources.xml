@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <Resource id="MySQLDataSource" type="DataSource">
+   JdbcDriver com.mysql.jdbc.Driver
+   JdbcUrl jdbc:mysql://localhost/test
+   UserName root
+   Password root
+ </Resource>
+</resources>

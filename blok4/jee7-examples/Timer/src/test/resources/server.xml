@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+    <!-- Enable features. Full list of features: https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_feat.html-->
+    <featureManager>
+        <feature>webProfile-7.0</feature>
+        <feature>localConnector-1.0</feature>
+        <feature>ejbPersistentTimer-3.2</feature>
+
+    </featureManager>
+
+    <dataSource id="DefaultDataSource" jndiName="jdbc/h2test">
+        <jdbcDriver libraryRef="H2JDBCLib"/>
+        <properties URL="jdbc:h2:mem:testdb" user="sa" password=""/>
+    </dataSource>
+
+
+    <library id="H2JDBCLib">
+        <fileset dir="${wlp.install.dir}/usr/shared/resources" includes="h2.jar"/>
+    </library>
+</server>

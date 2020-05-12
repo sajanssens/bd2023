@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>blok4</artifactId>
+        <groupId>com.infosupport</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>jee7-examples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <!-- Starting from JDK 9, the -release option replaces three flags: -source, -target and -bootclasspath. -->
+        <maven.compiler.release>11</maven.compiler.release>
+        <h2.connector.version>1.4.200</h2.connector.version>
+        <mysql.connector.version>8.0.18</mysql.connector.version>
+        <hsqldb.connector.version>2.3.4</hsqldb.connector.version>
+        <hibernate.entitymanager.version>5.2.13.Final</hibernate.entitymanager.version>
+        <junit.version>4.12</junit.version>
+        <arquillian.bom.version>1.5.0.Final</arquillian.bom.version>
+        <arquillian.liberty.version>1.0.6</arquillian.liberty.version>
+    </properties>
+
+    <modules>
+        <module>Asynchronous</module>
+        <module>CDI</module>
+        <module>CDI-SE</module>
+        <module>CMT</module>
+        <module>Complete</module>
+        <module>ejb</module>
+        <module>HSQLDB</module>
+        <module>JAXRSBasic</module>
+        <module>JAXRSBasicTomcat</module>
+        <module>JMS</module>
+        <module>JSF</module>
+        <module>MySQL</module>
+        <module>MySQLRest</module>
+        <module>PlainJPA</module>
+        <module>PrimeFaces</module>
+        <module>PrimeFacesProducer</module>
+        <module>Timer</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${arquillian.bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>io.openliberty.arquillian</groupId>
+                <artifactId>arquillian-liberty-managed</artifactId>
+                <version>${arquillian.liberty.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-api</artifactId>
+                <version>7.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-entitymanager</artifactId>
+                <version>${hibernate.entitymanager.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.connector.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>${hsqldb.connector.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- To run Arquillian test -->
+    <!-- mvn integration-test -->
+    <!-- Make sure all test classes end on 'IT' so FailSafe can pick them up -->
+
+    <!-- To run Arquillian tests from IntelliJ -->
+    <!-- Make sure Liberty is installed and configured in target (mvn liberty:create-server dependency:copy) before running tests from IntelliJ -->
+    <!-- Disable Arquillian plugin in IntelliJ to easily run the tests -->
+    <!-- Run the test by clicking the play button -->
+
+    <!-- To run an application use the following commands in the application directory: -->
+    <!-- mvn liberty:create-server creates the server -->
+    <!-- mvn package build the application and copy the database connectors-->
+    <!-- mvn liberty:start -->
+    <!-- mvn liberty:deploy@deploy-app deploys to target/liberty/wlp/user/servers/defaultServer/apps -->
+    <!--    View log in target/liberty/wlp/user/servers/defaultServer/logs-->
+    <!-- mvn liberty:undeploy -->
+    <!-- mvn liberty:stop -->
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <!-- To run on new Java versions -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+            <!-- Run tests during mvn integration-test -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Download WebSphere Liberty to target directory and start it -->
+            <!-- See test/resources/arquillian.xml and server.xml for configuration -->
+            <plugin>
+                <groupId>net.wasdev.wlp.maven.plugins</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>3.0.M1</version> <!-- plugin version -->
+                <configuration>
+                    <assemblyArtifact> <!-- Liberty server to run test against -->
+                        <groupId>io.openliberty</groupId>
+                        <artifactId>openliberty-runtime</artifactId>
+                        <version>19.0.0.10</version>
+                        <type>zip</type>
+                    </assemblyArtifact>
+                    <configFile>src/test/resources/server.xml</configFile> <!-- Used to run Arquillian-->
+                </configuration>
+                <executions>
+                    <!-- Create server during package phase for running the application AND Arquillian -->
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>create-server</goal>
+                        </goals>
+                    </execution>
+                    <!-- Used for running the application, not for Arquillian-->
+                    <execution>
+                        <id>deploy-app</id>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <appArchive>${project.basedir}\target\${project.build.finalName}.war</appArchive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Copy libraries to WebSphere Liberty -->
+            <!-- NOT TESTED possible alternative:  .addAsLibraries(resolver.artifact("org.hibernate:hibernate-core:4.1.7.Final").resolveAsFiles())-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <!-- Copy database connectors during package phase for running the application AND Arquillian. -->
+                    <!-- Bit overkill as they aren't used in all projects, but it keeps the configuration simpler. -->
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>copy-arquillian</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <artifactItems>
+                        <artifactItem>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
+                            <version>${h2.connector.version}</version>
+                            <type>jar</type>
+                            <overWrite>false</overWrite>
+                            <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources
+                            </outputDirectory>
+                            <destFileName>h2.jar</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>${mysql.connector.version}</version>
+                            <type>jar</type>
+                            <overWrite>false</overWrite>
+                            <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources
+                            </outputDirectory>
+                            <destFileName>mysql.jar</destFileName>
+                        </artifactItem>
+                        <artifactItem>
+                            <groupId>org.hsqldb</groupId>
+                            <artifactId>hsqldb</artifactId>
+                            <version>${hsqldb.connector.version}</version>
+                            <type>jar</type>
+                            <overWrite>false</overWrite>
+                            <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources
+                            </outputDirectory>
+                            <destFileName>hsqldb.jar</destFileName>
+                        </artifactItem>
+                    </artifactItems>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

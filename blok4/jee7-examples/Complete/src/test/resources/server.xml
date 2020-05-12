@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+    <!-- Enable features -->
+    <!-- Full list of features: https://www.ibm.com/support/knowledgecenter/en/SSEQTP_liberty/com.ibm.websphere.wlp.doc/ae/rwlp_feat.html-->
+    <featureManager>
+        <feature>webProfile-7.0</feature>
+        <feature>jaxrs-2.0</feature>
+        <feature>ejb-3.2</feature>
+    </featureManager>
+
+    <!-- keystore and basicRegistry are used to improve startup-->
+    <keyStore id="defaultKeyStore" password="0p3nL1b3ry"/>
+
+    <basicRegistry id="basic" realm="ibm/api">
+        <user name="guest" password="0p3nL1b3ry"/>
+    </basicRegistry>
+
+    <!-- Declare the runtime database -->
+    <dataSource id="DefaultDataSource" jndiName="jdbc/MySQLDataSource">
+        <jdbcDriver libraryRef="MySQLLib"/>
+        <properties databaseName="test"
+                    serverName="localhost" portNumber="3306"
+                    user="root" password="root"/>
+    </dataSource>
+
+    <library id="MySQLLib">
+        <fileset dir="${wlp.install.dir}/usr/shared/resources" includes="mysql.jar"/>
+    </library>
+
+</server>
