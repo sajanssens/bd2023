@@ -1,6 +1,6 @@
 package com.example.cdi.greetings;
 
-import com.example.cdi.greeters.qualifiers.NL;
+import com.example.cdi.greetings.qualifiers.NL;
 
 import javax.enterprise.context.Dependent;
 

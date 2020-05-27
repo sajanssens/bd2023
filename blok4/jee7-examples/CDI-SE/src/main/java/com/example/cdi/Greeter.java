@@ -1,11 +1,11 @@
 package com.example.cdi;
 
-import com.example.cdi.greeters.qualifiers.DE;
-import com.example.cdi.greeters.qualifiers.EN;
-import com.example.cdi.greeters.qualifiers.MaxNumber;
-import com.example.cdi.greeters.qualifiers.RandomNumber;
 import com.example.cdi.greetings.IGreeting;
 import com.example.cdi.greetings.NLGreeting;
+import com.example.cdi.greetings.qualifiers.DE;
+import com.example.cdi.greetings.qualifiers.EN;
+import com.example.cdi.greetings.qualifiers.MaxNumber;
+import com.example.cdi.greetings.qualifiers.RandomNumber;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.Dependent;

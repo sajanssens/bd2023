@@ -14,7 +14,7 @@ public class GreetingDecorator implements Greeting {
 
     @Override
     public String greet(String name) {
-        return greeting.greet(name + " from MyDecorator");
+        return greeting.greet(name + " from GreetingDecorator");
     }
 
 }

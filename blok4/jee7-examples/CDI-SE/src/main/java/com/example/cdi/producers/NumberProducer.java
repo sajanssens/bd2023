@@ -1,7 +1,7 @@
 package com.example.cdi.producers;
 
-import com.example.cdi.greeters.qualifiers.MaxNumber;
-import com.example.cdi.greeters.qualifiers.RandomNumber;
+import com.example.cdi.greetings.qualifiers.MaxNumber;
+import com.example.cdi.greetings.qualifiers.RandomNumber;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;

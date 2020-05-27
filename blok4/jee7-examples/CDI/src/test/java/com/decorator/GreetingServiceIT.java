@@ -1,5 +1,6 @@
 package com.decorator;
 
+import org.apache.commons.logging.LogFactory;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -21,6 +22,7 @@ public class GreetingServiceIT {
     public static JavaArchive createDeployment() {
         JavaArchive archive = ShrinkWrap.create(JavaArchive.class)
                 .addPackages(true, GreetingService.class.getPackage())
+                .addClass(LogFactory.class)
                 .addAsManifestResource(new StringAsset("<decorators><class>com.decorator.GreetingDecorator</class></decorators>"), "beans.xml");
 
         System.out.println(archive.toString(true));

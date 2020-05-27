@@ -1,4 +1,4 @@
-package com.example.cdi.greeters.qualifiers;
+package com.example.cdi.greetings.qualifiers;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
 package com.example.cdi.greetings;
 
-import com.example.cdi.greeters.qualifiers.EN;
+import com.example.cdi.greetings.qualifiers.EN;
 
 import javax.enterprise.inject.Default;
 

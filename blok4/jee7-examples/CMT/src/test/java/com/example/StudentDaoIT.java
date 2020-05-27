@@ -49,6 +49,6 @@ public class StudentDaoIT {
     @Test
     public void testSaveStudent12() throws Exception {
         studentDao.saveStudent12();
-        assertEquals(1, studentDao.getStudents().size());
+        assertEquals(0, studentDao.getStudents().size());
     }
 }
