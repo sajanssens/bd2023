@@ -63,27 +63,35 @@ public class Greeter {
     }
 
     private StringJoiner getAllGreetings() {
-        String bram = "Bram";
+        final String BRAM = "Bram";
         StringJoiner all = new StringJoiner(" | ");
 
-        String df = iGreeting.greet(bram);
-        String en = enGreeting.greet(bram);
-        String de = greeting(deGreetingProvider).map(g -> g.greet(bram)).orElse("");
-        String dfp = greeting(defaultGreetingProvider).map(g -> g.greet(bram)).orElse("");
+        String df = iGreeting.greet(BRAM);
+        String en = enGreeting.greet(BRAM);
+
+        String de = greeting(deGreetingProvider).map(g -> g.greet(BRAM)).orElse("");
+        // or imperative style:
+        // IGreeting iGreeting = deGreetingProvider.get();
+        // String de2 = "";
+        // if (iGreeting != null) {
+        //     de2 = iGreeting.greet(BRAM);
+        // }
+
+        String dfp = greeting(defaultGreetingProvider).map(g -> g.greet(BRAM)).orElse("");
 
         Instance<NLGreeting> nlGreeting = anyGreetings.select(NLGreeting.class);
-        String nl = !nlGreeting.isUnsatisfied() ? nlGreeting.get().greet(bram) : "";
+        String nl = !nlGreeting.isUnsatisfied() ? nlGreeting.get().greet(BRAM) : "";
 
         all
+                .add("DF:  " + df)
                 .add("EN:  " + en)
                 .add("NL:  " + nl)
                 .add("DE:  " + de)
-                .add("DF:  " + df)
                 .add("DFP: " + dfp);
 
         for (IGreeting anyGreeting : anyGreetings) {
             all
-                    .add("Any: " + anyGreeting.greet(bram));
+                    .add("Any: " + anyGreeting.greet(BRAM));
         }
         return all;
     }

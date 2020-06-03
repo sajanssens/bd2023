@@ -45,7 +45,7 @@ public class AsyncBeanFutureClientIT {
         System.out.println("[5] client code");
 
         String someAsyncThing = someAsyncThingFuture.get();
-        String anotherAsyncThing = anotherAsyncThingFuture.get();
+        String anotherAsyncThing = anotherAsyncThingFuture.get(); // blocking call... do this as late as possible
         System.out.println(someAsyncThing);
 
         long timeUntilAnotherAsyncPrint = System.currentTimeMillis() - currentTimeMillisBefore;
@@ -74,7 +74,7 @@ public class AsyncBeanFutureClientIT {
         assertTrue(timeUntilAnotherAsyncPrint < 1100);
         System.out.println("[6] Time until another async is printed: " + timeUntilAnotherAsyncPrint);
 
-        String someAsyncThing = someAsyncThingFuture.get();
+        String someAsyncThing = someAsyncThingFuture.get();// blocking call... do this as late as possible
         System.out.println(someAsyncThing);
 
         long currentTimeMillisAfter = System.currentTimeMillis();

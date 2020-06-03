@@ -6,10 +6,10 @@ import javax.ejb.Stateless;
 @Stateless
 public class AsyncBeanFutureClient {
 
-	@EJB
-	AsyncBeanFutureService asyncBeanFutureService;
+    @EJB
+    AsyncBeanFutureService asyncBeanFutureService;
 
-	public AsyncBeanFutureService getAsyncBeanFutureService() {
-		return asyncBeanFutureService;
-	}
+    public AsyncBeanFutureService getAsyncBeanFutureService() {
+        return asyncBeanFutureService;
+    }
 }

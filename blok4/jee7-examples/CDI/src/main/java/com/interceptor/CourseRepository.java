@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 @MeasureMethodDuration
 @Stateless
 public class CourseRepository {
+
 	public void save() throws InterruptedException {
 		System.out.println("Saving course");
 		Thread.sleep(42L);

@@ -18,9 +18,10 @@ import static org.junit.Assert.assertNotEquals;
 public class JndiIT {
 
     @Deployment
-    public static Archive createDeployment() {
-        Archive archive = ShrinkWrap.create(WebArchive.class, "stateapp.war")
-                .addPackage(StatefulBean.class.getPackage());
+    public static Archive<?> createDeployment() {
+        Archive<?> archive = ShrinkWrap.create(WebArchive.class, "stateapp.war")
+                .addPackage(StatefulBean.class.getPackage())
+                .addPackage(com.state.state2.StatefulBean.class.getPackage());
 
         System.out.println(archive.toString(true));
 
@@ -67,6 +68,17 @@ public class JndiIT {
 
         Object stateful1 = context.lookup("java:module/StatefulBean"); // shorter version
         Object stateful2 = context.lookup("java:module/StatefulBean!com.state.StatefulBean");
+
+        assertNotEquals(stateful1, stateful2);
+    }
+
+    @Test
+    public void testJNDIUniqueNames() throws NamingException {
+        InitialContext context = new InitialContext();
+
+        // Although the class name is the same, the bean name must be unique so different from each other
+        Object stateful1 = context.lookup("java:module/StatefulBean");
+        Object stateful2 = context.lookup("java:module/StatefulBean2"); // shorter version
 
         assertNotEquals(stateful1, stateful2);
     }

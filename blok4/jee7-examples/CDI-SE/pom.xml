@@ -33,8 +33,8 @@
             <groupId>org.jboss.weld.se</groupId>
             <artifactId>weld-se-core</artifactId>
             <!-- See for versions: https://weld.cdi-spec.org/documentation/#9 -->
-            <version>2.4.8.Final</version>       <!--contains CDI1.2-->
-            <!--<version>3.1.2.Final</version>--><!--contains CDI2.0-->
+            <!--<version>2.4.8.Final</version>       &lt;!&ndash;contains CDI1.2&ndash;&gt;-->
+            <version>3.1.2.Final</version><!--contains CDI2.0-->
         </dependency>
         <!-- If you want to use another CDI-version than Weld uses, use: -->
         <!--

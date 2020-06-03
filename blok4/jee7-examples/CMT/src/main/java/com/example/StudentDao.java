@@ -10,6 +10,9 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+import static javax.ejb.TransactionAttributeType.REQUIRED;
+import static javax.ejb.TransactionAttributeType.REQUIRES_NEW;
+
 @Stateless
 public class StudentDao {
 
@@ -21,13 +24,13 @@ public class StudentDao {
         System.out.println("Postconstruct StudentManager");
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(REQUIRED)  // A.C.I.D.
     public void saveStudent1Valid() {
         entityManager.persist(new Student("Anna", 1967));
         entityManager.flush();
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW) // Use REQUIRED or REQUIRES_NEW
+    @TransactionAttribute(REQUIRES_NEW) // Use REQUIRED or REQUIRES_NEW
     public void saveStudent2TooLongName() {
         try {
             entityManager.persist(new Student("Jan Paul", 1973)); // name is too long, so insert will be rejected
@@ -37,9 +40,12 @@ public class StudentDao {
         }
     }
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(REQUIRED)
     public void saveStudent12() {
-        this.saveStudent1Valid();
+        // studentDao.saveStudent1Valid();
+        // studentDao.saveStudent2TooLongName();
+
+        this.saveStudent1Valid(); // DONT DO THIS (pun intended!)
         this.saveStudent2TooLongName();
     }
 

@@ -29,7 +29,7 @@ public class BasketIT {
     @Inject
     Basket basket;
 
-    @EJB
+    @Inject
     SingletonOrderRepository repo;
 
     @Test

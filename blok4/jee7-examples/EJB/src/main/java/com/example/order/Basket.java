@@ -3,6 +3,7 @@ package com.example.order;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @SessionScoped
 public class Basket implements Serializable {
 
-    @EJB // local interfaced session bean
+    @Inject // local interfaced session bean
     private SingletonOrderRepository repo;
 
     @EJB // no-interface session bean

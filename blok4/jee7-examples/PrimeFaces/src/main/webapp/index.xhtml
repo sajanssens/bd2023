@@ -1,53 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
-<h:head>
-</h:head>
-<h:body>
-	<h:form>
+    <h:head>
+    </h:head>
+    <h:body>
+        <h:form>
 
-		<h:panelGrid id="newstudent" columns="3">
-			<h:outputText value='Firstname' />
-			<h:inputText id="firstname" value='#{studentBean.newStudent.firstname}' />
-			<h:message for="firstname" style="color:red;"/>
-			
-			<h:outputText value='Lastname' />
-			<h:inputText id="lastname" value='#{studentBean.newStudent.lastname}' />
-			<h:message for="lastname" style="color:red;"/>
-			
-			<h:outputText id="yearofbirth" value='Year of birth' />
-			<h:inputText value='#{studentBean.newStudent.yearOfBirth}' />
-			<h:message for="yearofbirth" style="color:red;"/>
+            <h:panelGrid id="newstudent" columns="3">
+                <h:outputText value='Firstname'/>
+                <h:inputText id="firstname" value='#{studentBean.newStudent.firstname}'/>
+                <h:message for="firstname" style="color:red;"/>
 
-			<p:commandButton value="Save" actionListener="#{studentBean.save}"
-				ajax="true" update="studenttable newstudent" />
-			<h:messages style="color:red;"/>
-		</h:panelGrid>
+                <h:outputText value='Lastname'/>
+                <h:inputText id="lastname" value='#{studentBean.newStudent.lastname}'/>
+                <h:message for="lastname" style="color:red;"/>
 
-		<p:dataTable var="student" id="studenttable"
-			value="#{studentBean.students}" rows="10" paginator="true"
-			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15">
-			<p:column headerText="Firstname">
-				<h:outputText value="#{student.firstname}"
-					sortBy="#{student.firstname}" />
-			</p:column>
+                <h:outputText id="yearofbirth" value='Year of birth'/>
+                <h:inputText value='#{studentBean.newStudent.yearOfBirth}'/>
+                <h:message for="yearofbirth" style="color:red;"/>
 
-			<p:column headerText="Lastname">
-				<h:outputText value="#{student.lastname}" />
-			</p:column>
+                <p:commandButton value="Save" actionListener="#{studentBean.save}"
+                                 ajax="true" update="studenttable newstudent"/>
+                <h:messages style="color:red;"/>
+            </h:panelGrid>
 
-			<p:column headerText="Year of birth">
-				<h:outputText value="#{student.yearOfBirth}" />
-			</p:column>
-		</p:dataTable>
-	</h:form>
-</h:body>
+            <p:dataTable var="student" id="studenttable"
+                         value="#{studentBean.students}" rows="10" paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+                <p:column headerText="Firstname">
+                    <h:outputText value="#{student.firstname}"
+                                  sortBy="#{student.firstname}"/>
+                </p:column>
+
+                <p:column headerText="Lastname">
+                    <h:outputText value="#{student.lastname}"/>
+                </p:column>
+
+                <p:column headerText="Year of birth">
+                    <h:outputText value="#{student.yearOfBirth}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </h:body>
 </html>
 

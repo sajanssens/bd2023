@@ -22,6 +22,10 @@ public class CDIApplication {
         // SeContainerInitializer initializer = SeContainerInitializer.newInstance();
         // SeContainer container = initializer/*.disableDiscovery().addPackages(CDIApplication.class)*/.initialize())
 
+        GreeterSimple greeterSimple = container.select(GreeterSimple.class).get();
+        String hi = greeterSimple.hi();
+        System.out.println("Default simple greeting: " + hi);
+
         // 1) call bean method to check its dependencies.
         MyService myService = container.select(MyService.class).get();
         logger.info(myService.doeIets());

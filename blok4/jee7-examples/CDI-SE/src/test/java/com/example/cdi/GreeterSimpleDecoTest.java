@@ -28,6 +28,9 @@ public class GreeterSimpleDecoTest {
 
     @Test
     public void hiContainsDecoratedGreeting() {
-        assertThat(greeterSimple.hi(), containsString("from GreetingDecorator"));
+        String hi = greeterSimple.hi();
+        System.out.println(hi);
+
+        assertThat(hi, containsString("from GreetingDecorator"));
     }
 }

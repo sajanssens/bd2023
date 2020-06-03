@@ -35,14 +35,7 @@ public class StudentDaoIT {
     public void testGetStudents() throws Exception {
         studentDao.saveStudent1Valid();
         studentDao.saveStudent2TooLongName();
-        /*
-         * Always one, doesn't matter if REQUIRED or REQUIRES_NEW is used.
-         *
-         * Reason is that all the fancy annotation magic for the container isn't used
-         * when calling the method with the annotation from within the same class.
-         *
-         * You need to call the method from within another class where you inject the StudentManager as an EJB.
-         */
+
         assertEquals(1, studentDao.getStudents().size());
     }
 

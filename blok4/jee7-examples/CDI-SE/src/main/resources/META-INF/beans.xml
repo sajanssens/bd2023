@@ -29,4 +29,7 @@
 <!--    <interceptors>
         <class>com.example.cdi.interceptor.MethodDurationInterceptor</class>
     </interceptors>-->
+    <decorators>
+        <class>com.example.cdi.greetings.GreetingDecorator</class>
+    </decorators>
 </beans>
