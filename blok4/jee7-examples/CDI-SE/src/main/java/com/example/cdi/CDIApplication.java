@@ -26,6 +26,8 @@ public class CDIApplication {
         String hi = greeterSimple.hi();
         System.out.println("Default simple greeting: " + hi);
 
+        greeterSimple.nieuweNieuwsbrief("Nieuws van week 23: ...");
+
         // 1) call bean method to check its dependencies.
         MyService myService = container.select(MyService.class).get();
         logger.info(myService.doeIets());
