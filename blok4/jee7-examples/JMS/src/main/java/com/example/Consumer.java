@@ -7,14 +7,9 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
-@MessageDriven(
-        name = "testQueueMDB",
-        mappedName = "java:app/testQueue",
-        activationConfig = {
-                @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-                @ActivationConfigProperty(propertyName = "destination", propertyValue = "java:app/testQueue")
-        }
-)
+@MessageDriven(activationConfig = {
+        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+        @ActivationConfigProperty(propertyName = "destination", propertyValue = "java:app/testQueue")})
 public class Consumer implements MessageListener {
 
     @Inject

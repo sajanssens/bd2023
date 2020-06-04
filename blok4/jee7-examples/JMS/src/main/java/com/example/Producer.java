@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @Stateless
 public class Producer {
 
-    @Inject // enabled by Config.testQueue() producer method
+    @Inject // from QueueProducer
     private Queue queue;
 
     @Inject
