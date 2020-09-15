@@ -32,31 +32,33 @@ public class SmallPrograms {
         byte a = 0b1010; // 10
         byte b = 0b100;  // 4
         byte c = (byte) (a + b);
+
         System.out.println(c);
 
         // 4.
-        i = sp.klok(23, 5);
-        i = sp.klok(12, 7);
+        i = SmallPrograms.klok(23, 80);
+        int aantalDagen = (23 + 80) / 24;
 
-        System.out.println(i);
+        System.out.println("Het is zo laat: " + i);
+        System.out.println("Het is zoveel dagen later: " + aantalDagen);
 
         // 5.
         PrimitiveSizeTypes.print();
 
         // 6.
-        Client client1 = new Client("Jan");
-        Client client2 = new Client("Piet");
+        Client client1 = new Client();
+        client1.name = "Jan";
+        Client client2 = new Client();
+        client2.name = "Piet";
         client2 = client1;
-        client2.setName("Joris");
-        System.out.println(client1.getName());
+        client2.name = "Joris";
+        System.out.println(client1.name);
+
+        System.gc();
     }
 
-    int klok(int huidigeTijd, int urenLater) {
+    static int klok(int huidigeTijd, int urenLater) {
         return (huidigeTijd + urenLater) % 24;
-    }
-
-    static void resetNaam(Client c) {
-        c.setName("");
     }
 
     Point howManyHoursAndMinutes(int hoursAndMinutes) {
