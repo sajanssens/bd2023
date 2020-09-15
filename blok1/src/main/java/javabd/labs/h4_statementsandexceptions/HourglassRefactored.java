@@ -1,13 +1,24 @@
 package javabd.labs.h4_statementsandexceptions;
 
+import java.util.Scanner;
+
 public class HourglassRefactored {
-    public static void main(String[] args) {
-        int n = 9;
-        printHourglass(n);
+
+    public int lees() {
+        System.out.println("Geef een nummer: ");
+
+        Scanner scanner = new Scanner(System.in);
+        String s = scanner.nextLine();
+        int n = Integer.parseInt(s);
+
+        return n;
     }
 
-    private static void printHourglass(int n) {
-        if (n % 2 == 0) throw new EvenNumberException("Even numbers not allowed");
+    public void printHourglass(int n) throws EvenNumberException {
+        if (n % 2 == 0) {
+            throw new EvenNumberException("Even numbers not allowed");
+        }
+
         buildFullLine(n);
 
         for (int i = 1; i <= n / 2 - 1; i++) {
@@ -21,6 +32,7 @@ public class HourglassRefactored {
         }
 
         buildFullLine(n);
+
     }
 
     private static void buildFullLine(int n) {

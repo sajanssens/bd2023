@@ -3,7 +3,11 @@ package javabd.labs.h4_statementsandexceptions;
 public class Seasons {
 
     public static void main(String[] args) {
-        Season s = Season.DRY;
+        checkTemperature(Season.DRY);
+        checkTemperature(Season.SPRING);
+    }
+
+    private static void checkTemperature(Season s) {
         switch (s) {
             case SPRING:
             case SUMMER:
@@ -17,8 +21,8 @@ public class Seasons {
                 System.out.println(s + " is unknown...");
         }
     }
+
 }
 
-enum Season {
-    SPRING, SUMMER, FALL, WINTER, DRY, WET;
-}
+
+
