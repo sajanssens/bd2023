@@ -1,6 +1,5 @@
 package javabd.labs.h14_collections;
 
-
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -38,9 +37,5 @@ class PersonTest {
         persons.add(new Person("Corneel", 21));
 
         assertThat(persons.size(), is(4));
-
-        for (Person person : persons) {
-            System.out.println(person.hashCode());
-        }
     }
 }

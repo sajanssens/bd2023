@@ -49,17 +49,28 @@ public class Person extends Human {
         return name + " (" + age + ") is " + gender;
     }
 
+    // EQUALITY
+    // Hier definiëren we de functionele sleutel van dit object.
+    // Een persoon is uniek o.b.v. naam, leeftijd en geslacht.
+    // Voor deze combinatie van velden moet ook een bijbehorende unieke hash worden gegeven in hashCode.
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Person)) return false;
 
         Person other = (Person) obj;
-        return this.name.equals(other.getName()) && this.age == other.getAge() && this.gender.equals(other.getGender());
+        return this.name.equals(other.name) && this.age == other.age && this.gender == other.gender;
     }
 
+    // IDENTITY
     @Override
     public int hashCode() {
+        // When overriding equals, you MUST also override hashcode.
+        // Otherwise, two equal objects still have different hashcodes (i.e. identities)
+        // and therefore will be duplicated in a hashtable, such as a HashSet or HashMap.
+
         return name.hashCode() * age * gender.hashCode();
+        // better hash function:
+        // return Objects.hash(name, age, gender);
     }
 
     @Override
