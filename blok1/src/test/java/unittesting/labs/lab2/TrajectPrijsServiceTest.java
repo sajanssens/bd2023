@@ -13,15 +13,15 @@ import unittesting.slides.mocking.all.lab.TrajectPrijsService;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TrajectPrijsServiceTest {
 
-    @Mock
-    private TrajectNaarTrajectEenhedenService trajectNaarTrajectEenhedenService;
+    // @Mock
+    private TrajectNaarTrajectEenhedenService trajectNaarTrajectEenhedenService = mock(TrajectNaarTrajectEenhedenService.class);
     @Mock
     private TrajectEenhedenNaarPrijsService trajectEenhedenNaarPrijsService;
 
@@ -32,21 +32,26 @@ class TrajectPrijsServiceTest {
         this.service = new TrajectPrijsService();
         service.setTrajectEenhedenNaarPrijsService(this.trajectEenhedenNaarPrijsService);
         service.setTrajectNaarTrajectEenhedenService(this.trajectNaarTrajectEenhedenService);
-
     }
 
     @Test
     void getTrajectPrijs() {
-        when(trajectNaarTrajectEenhedenService.getTrajectEenheden(eq("AM"), eq("UT"))).thenReturn(5);
+        // given
+        when(trajectNaarTrajectEenhedenService.getTrajectEenheden(any(), eq("UT"))).thenReturn(5);
         when(trajectEenhedenNaarPrijsService.getPriceTrajectEenheden(eq(5))).thenReturn(4);
 
+        // when
         int trajectPrijs = service.getTrajectPrijs("AM", "UT");
+
+        // then
         assertThat(trajectPrijs, is(20));
     }
 
     @Test
     void getTrajectPrijsInvalidLocation() {
+        //given
         when(trajectNaarTrajectEenhedenService.getTrajectEenheden(eq("XX"), anyString())).thenThrow(new InvalidLocationException());
-        assertThrows(InvalidLocationException.class, () -> service.getTrajectPrijs("XX", "UT"));
+
+        assertThrows(/*then*/ InvalidLocationException.class, () -> /*when: */ service.getTrajectPrijs("XX", "UT"));
     }
 }
