@@ -45,8 +45,10 @@ class PersonTest {
     void testReflection() {
         // Person p1 = new Person("Jan", 45);
 
-        Method[] declaredMethods = Person.class.getDeclaredMethods();
-        for (Method method : declaredMethods) {
+        Class<Person> hetTypePerson = Person.class;
+
+        Method[] deMethodesVanHetTypePerson = hetTypePerson.getDeclaredMethods();
+        for (Method method : deMethodesVanHetTypePerson) {
             System.out.println("method: " + method.getName());
             Annotation[] declaredAnnotations = method.getAnnotations();
             for (Annotation declaredAnnotation : declaredAnnotations) {
@@ -54,9 +56,10 @@ class PersonTest {
             }
         }
 
-        Field[] declaredFields = Person.class.getDeclaredFields();
-        for (Field f : declaredFields) {
+        Field[] deFieldsVanHetTypePerson = hetTypePerson.getDeclaredFields();
+        for (Field f : deFieldsVanHetTypePerson) {
             System.out.println("field: " + f.getName());
+            f.setAccessible(true);
         }
     }
 }
