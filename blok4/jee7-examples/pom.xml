@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <!-- Starting from JDK 9, the -release option replaces three flags: -source, -target and -bootclasspath. -->
-        <maven.compiler.release>11</maven.compiler.release>
+        <!--<maven.compiler.release>11</maven.compiler.release>-->
         <h2.connector.version>1.4.200</h2.connector.version>
         <mysql.connector.version>8.0.18</mysql.connector.version>
         <hsqldb.connector.version>2.3.4</hsqldb.connector.version>
