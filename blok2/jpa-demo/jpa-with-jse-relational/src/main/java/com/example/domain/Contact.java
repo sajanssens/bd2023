@@ -23,6 +23,9 @@ public class Contact extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ContactType type;
 
+    @Embedded
+    private Address addressWork;
+
     // --- Single Valued relationships  (@...ToOne) -----------------
 
     // UniDi
