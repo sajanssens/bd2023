@@ -4,13 +4,13 @@ import com.example.App;
 import com.example.EntityManagerProducerAlt;
 import com.example.domain.*;
 import org.assertj.core.api.Assertions;
-import org.hamcrest.MatcherAssert;
 import org.hibernate.LazyInitializationException;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.AddPackages;
 import org.jboss.weld.junit5.auto.EnableAlternatives;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.After;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 
@@ -24,6 +24,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @EnableAutoWeld
@@ -93,6 +94,19 @@ class ContactDaoIT {
     }
 
     @Test
+    public void whenContactWithInvalidNameIsInsertedItIsRefused() {
+        Contact bramTooLong = new Contact("Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram ", new Date());
+        assertThrows(RuntimeException.class, () -> dao.insert(bramTooLong));
+    }
+
+    @Test
+    public void whenContactWithInvalidEmailIsInsertedItIsRefused() {
+        Contact bramInvalidEmail = new Contact("Bram", new Date());
+        bramInvalidEmail.setEmailAddress("bram_at_test.com");
+        assertThrows(RuntimeException.class, () -> dao.insert(bramInvalidEmail));
+    }
+
+    @Test
     void whenEmployeesAreQueriedTheirPhonesAreLazilyLoaded() {
         Contact a = new Contact("A");
         a.addPhone(new Phone("1"));
@@ -105,12 +119,12 @@ class ContactDaoIT {
         dao.insert(a);
         dao.insert(b);
 
-        for (Contact employee : dao.findEmployees(false)) {
+        for (Contact employee : dao.findWithPhones(false)) {
             log(employee);
             employee.getPhones().forEach(p -> log(p.getNumber()));
         }
 
-        for (Contact employee : dao.findEmployees(true)) {
+        for (Contact employee : dao.findWithPhones(true)) {
             log(employee);
             employee.getPhones().forEach(p -> log(p.getNumber()));
         }
@@ -168,7 +182,34 @@ class ContactDaoIT {
     }
 
     @Test
-    void whenEmployeeIsSelectedItsPhonesAreNotLoaded() {
+    @Disabled
+        // IMPORTANT!! Only works when project is built with maven!
+        // Because hibernate-enhance-maven-plugin is needed to let basic fields load lazily!
+    void whenContactIsSelectedResumeIsLazilyLoaded() {
+
+        // given a new and saved Contact with resume
+        Contact e = new Contact("emp");
+        e.setResume("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non tempus enim. Duis eget sapien enim. Morbi elementum dictum tempus. Sed posuere tortor mauris, quis vehicula tellus congue non.");
+        dao.insert(e);
+
+        // when we get it from the db and it is detached
+        Contact detachedEmp = dao.select(e.getId());
+        // then resume is not loaded and cannot be loaded anymore
+        assertTrue(isDetached(detachedEmp));
+        assertThrows(LazyInitializationException.class, detachedEmp::getResume);
+
+        // but
+        // when we keep it managed
+        Contact managedEmp = dao.select(e.getId());
+        // then the resume can be loaded
+        assertFalse(isDetached(managedEmp));
+        String resume = managedEmp.getResume(); // get resume from managed Contact
+        Assertions.assertThat(resume).isNotBlank(); // this should succeed
+    }
+
+    @Test
+    @Disabled
+    void whenContactIsSelectedItsPhonesAreNotLoaded() {
         Contact a = new Contact("A");
         a.addPhone(new Phone("1"));
         a.addPhone(new Phone("2"));

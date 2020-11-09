@@ -3,6 +3,8 @@ package com.example.domain;
 import com.example.util.BooleanTFConverter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -15,7 +17,12 @@ import static javax.persistence.TemporalType.DATE;
 public class Contact extends AbstractEntity {
 
     // @Basic is present implicitly on each field
+    @Size(max = 100)
     private String name;
+
+    @Column(unique = true)
+    @Email // @Pattern(regexp = EMAIL) // Bean validation API
+    private String emailAddress;
 
     // Special fields -----------------------------------------------
 
@@ -97,6 +104,8 @@ public class Contact extends AbstractEntity {
 
     public void setName(String name) { this.name = name; }
 
+    public void setEmailAddress(String email) { this.emailAddress = email; }
+
     public String getResume() { return resume; }
 
     public Department getBossOfDepartment() { return bossOfDepartment; }
@@ -108,6 +117,8 @@ public class Contact extends AbstractEntity {
     public void setParkingSpace(ParkingSpace parkingSpaces) { this.parkingSpace = parkingSpaces; }
 
     public void setLeaseCar(Car leaseCar) { this.leaseCar = leaseCar; }
+
+    public void setResume(String resume) { this.resume = resume; }
 
     public void addPhone(Phone p) { this.phones.add(p);}
 

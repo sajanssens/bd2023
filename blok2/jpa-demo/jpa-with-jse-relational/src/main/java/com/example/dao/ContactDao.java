@@ -30,6 +30,7 @@ public class ContactDao {
             em.detach(p);
         } catch (Exception e) {
             em.getTransaction().rollback();
+            throw e;
         }
     }
 
@@ -58,25 +59,14 @@ public class ContactDao {
         return query.getResultList(); // 3
     }
 
-    public List<Contact> selectTempEmployees() {
-        TypedQuery<Contact> query = em.createQuery("select p from Contact p where type(p) = TemporaryEmployee", Contact.class);
-        return query.getResultList(); // 2
-    }
-
-    public List<Contact> findByPhone(long phoneId) {
-        TypedQuery<Contact> query = em.createQuery(
-                "SELECT p " +
-                        "FROM Contact p " +
-                        "JOIN p.phones ps " +
-                        "WHERE ps.id = :phoneId",
-                Contact.class);
-        query.setParameter("phoneId", phoneId);
-        return query.getResultList(); // findBy on OneToMany (with join)
-    }
-
     public List<Contact> selectAllNamed() {
         TypedQuery<Contact> findAll = em.createNamedQuery("findAll", Contact.class);
         return findAll.getResultList();
+    }
+
+    public List<Contact> selectTempEmployees() {
+        TypedQuery<Contact> query = em.createQuery("select p from Contact p where type(p) = TemporaryEmployee", Contact.class);
+        return query.getResultList(); // 2
     }
 
     public void delete(long id) {
@@ -105,7 +95,18 @@ public class ContactDao {
         return merged;
     }
 
-    public List<Contact> findEmployees(boolean eager) {
+    public List<Contact> findByPhone(long phoneId) {
+        TypedQuery<Contact> query = em.createQuery(
+                "SELECT p " +
+                        "FROM Contact p " +
+                        "JOIN p.phones ps " +
+                        "WHERE ps.id = :phoneId",
+                Contact.class);
+        query.setParameter("phoneId", phoneId);
+        return query.getResultList(); // findBy on OneToMany (with join)
+    }
+
+    public List<Contact> findWithPhones(boolean eager) {
         String fetch = eager ? "FETCH" : "";
 
         return em.createQuery(
