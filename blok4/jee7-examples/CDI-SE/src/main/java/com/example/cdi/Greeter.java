@@ -25,7 +25,7 @@ public class Greeter {
     @Inject @EN IGreeting enGreeting;
 
     // example of field-injecting a default bean
-    @Inject @Default IGreeting iGreeting;
+    @Inject @Default IGreeting defaultGreeting;
 
     // example of injecting a Provider of a bean, instead of a bean directly
     @Inject @DE Provider<IGreeting> deGreetingProvider;
@@ -43,7 +43,7 @@ public class Greeter {
     @Inject @RandomNumber
     private int randomNumber;
 
-    private Logger log; // injected by constructor injection
+    private final Logger log; // injected by constructor injection
 
     @Inject // example of constructor injection (of a Logger produced by LoggerProducer)
     public Greeter(Logger log) {
@@ -66,7 +66,7 @@ public class Greeter {
         final String BRAM = "Bram";
         StringJoiner all = new StringJoiner(" | ");
 
-        String df = iGreeting.greet(BRAM);
+        String df = defaultGreeting.greet(BRAM);
         String en = enGreeting.greet(BRAM);
 
         String de = greeting(deGreetingProvider).map(g -> g.greet(BRAM)).orElse("");
