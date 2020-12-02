@@ -9,8 +9,8 @@ public class AsyncBean {
     public long processWork(String data) throws InterruptedException {
         System.out.println("[1]");
         long currentTimeMillisBefore = System.currentTimeMillis();
-        doSomeAsyncThing(data);
-        doAnotherAsyncThing(data);
+        /*this.*/doSomeAsyncThing(data);
+        /*this.*/doAnotherAsyncThing(data);
         long currentTimeMillisAfter = System.currentTimeMillis();
         long elapsedMilliSeconds = currentTimeMillisAfter - currentTimeMillisBefore;
         System.out.println("[4] elapsed time in milliseconds: " + elapsedMilliSeconds);

@@ -7,18 +7,17 @@
     </featureManager>
 
     <!-- Declare the runtime database -->
-    <dataSource id="DefaultDataSource" jndiName="jdbc/MySQLDataSource">
-        <jdbcDriver libraryRef="MySQLLib"/>
-        <properties databaseName="test"
-                    serverName="localhost" portNumber="3306"
-                    user="root" password="root"/>
+    <dataSource id="DefaultDataSource" jndiName="jdbc/h2test">
+        <jdbcDriver libraryRef="H2JDBCLib"/>
+        <properties URL="jdbc:h2:mem:testdb" user="sa" password=""/>
     </dataSource>
 
-    <library id="MySQLLib">        <fileset dir="${wlp.install.dir}/usr/shared/resources" includes="mysql.jar"/>
+    <library id="H2JDBCLib">
+        <fileset dir="${wlp.install.dir}/usr/shared/resources" includes="h2.jar"/>
     </library>
 
     <httpEndpoint id="defaultHttpEndpoint"
                   host="localhost"
                   httpPort="9080"
-                  httpsPort="9443" />
+                  httpsPort="9443"/>
 </server>

@@ -16,12 +16,12 @@ import static org.junit.Assert.assertNotEquals;
 @RunWith(Arquillian.class)
 public class StatefulVSStatelessIT {
     // should be two different instances
-    @Inject private StatefulBean stateful1;
-    @Inject private StatefulBean stateful2;
+    @Inject private StatefulBean stateful1; // ----> @123 A PB, PC
+    @Inject private StatefulBean stateful2; // ----> @456 B AP, AB
 
     // should be the same instance
-    @Inject private StatelessBean stateless1;
-    @Inject private StatelessBean stateless2;
+    @Inject private StatelessBean stateless1; // ---> @789 C PB, PC, AP, AB
+    @Inject private StatelessBean stateless2; // -|
 
     @Deployment
     public static WebArchive createDeployment() {

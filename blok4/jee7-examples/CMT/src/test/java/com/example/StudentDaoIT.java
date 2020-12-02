@@ -5,7 +5,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,25 +22,39 @@ public class StudentDaoIT {
     public static Archive<?> createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
                 .addPackage(StudentService.class.getPackage())
-                .addAsResource("META-INF/persistence.xml");
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        studentDao.removeStudents();
+                .addAsResource("test-persistence.xml", "META-INF/persistence.xml");
     }
 
     @Test
-    public void testGetStudents() throws Exception {
-        studentDao.saveStudent1Valid();
-        studentDao.saveStudent2TooLongName();
+    public void testSaveStudentsSameTransaction() throws Exception {
+        int before = studentDao.getStudents().size();
 
-        assertEquals(1, studentDao.getStudents().size());
+        studentDao.saveStudent1Valid();
+        studentDao.saveStudent2TooLongNameSameTransaction(); // mislukt == rollback alles
+
+        int after = studentDao.getStudents().size();
+
+        assertEquals(0, after - before);
+    }
+
+    @Test
+    public void testSaveStudentsDifferentTransactions() throws Exception {
+        int before = studentDao.getStudents().size();
+
+        studentDao.saveStudent1Valid();
+        studentDao.saveStudent2TooLongNameInANewTransaction(); // mislukt == rollback student2
+
+        int after = studentDao.getStudents().size();
+
+        assertEquals(1, after - before);
     }
 
     @Test
     public void testSaveStudent12() throws Exception {
+        int before = studentDao.getStudents().size();
         studentDao.saveStudent12();
-        assertEquals(0, studentDao.getStudents().size());
+        int after = studentDao.getStudents().size();
+
+        assertEquals(0, after - before);
     }
 }

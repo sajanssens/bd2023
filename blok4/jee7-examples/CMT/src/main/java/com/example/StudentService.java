@@ -18,7 +18,7 @@ public class StudentService {
     // @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void save() throws Exception {
         studentDao.saveStudent1Valid();
-        studentDao.saveStudent2TooLongName();
+        studentDao.saveStudent2TooLongNameSameTransaction();
     }
 
     // @TransactionAttribute(TransactionAttributeType.REQUIRED)

@@ -14,7 +14,7 @@ public class MethodDurationInterceptor {
     public Object check(InvocationContext ic) throws Exception {
         long startTime = Calendar.getInstance().getTimeInMillis();
         try {
-            return ic.proceed();
+            return ic.proceed(); // chain.next
         } finally {
             long endTime = Calendar.getInstance().getTimeInMillis();
             long methodDuration = endTime - startTime;

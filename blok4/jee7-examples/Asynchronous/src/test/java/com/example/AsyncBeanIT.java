@@ -25,10 +25,10 @@ public class AsyncBeanIT {
         return archive;
     }
 
-	@Test
-	public void testGetStudents() throws Exception {
-		long elapsedTime = asyncBean.processWork("Very important data");
-		assertTrue(elapsedTime >= 3000);
-	}
+    @Test
+    public void testProcessWork() throws Exception {
+        long elapsedTime = asyncBean.processWork("Very important data");
+        assertTrue(elapsedTime >= 3000);
+    }
 
 }
