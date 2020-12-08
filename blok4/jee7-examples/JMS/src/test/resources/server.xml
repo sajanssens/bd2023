@@ -17,7 +17,7 @@
         <queue id="testQueue"/>
     </messagingEngine>
 
-    <jmsActivationSpec id="JMS/testQueueMDB">
+    <jmsActivationSpec id="JMS/Consumer">
         <properties.wasJms destinationRef="java:app/testQueue"/>
     </jmsActivationSpec>
 </server>
