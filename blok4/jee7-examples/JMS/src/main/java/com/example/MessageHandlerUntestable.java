@@ -1,9 +1,5 @@
 package com.example;
 
-import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
-
-@Dependent @Default
 public class MessageHandlerUntestable implements MessageHandler {
 
     @Override

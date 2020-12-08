@@ -1,11 +1,20 @@
 package com.example;
 
-import javax.enterprise.context.Dependent;
+import javax.annotation.Resource;
+import javax.enterprise.inject.Produces;
 import javax.jms.JMSDestinationDefinition;
+import javax.jms.Queue;
 
-@Dependent // to enable this class as a bean
-@JMSDestinationDefinition( // define and create a Queue
+@JMSDestinationDefinition( // lookup the queue, defined in server.xml
         name = "java:app/testQueue", // JNDI name of the destination resource being defined.
         interfaceName = "javax.jms.Queue",
         destinationName = "testQueue")
-public class AppConfig {}
+public class AppConfig {
+
+    @Resource(lookup = "java:app/testQueue") // the JNDI name from JMSDestinationDefinition
+    private Queue testQueue;
+
+    @Produces
+    public Queue testQueue() { return testQueue; }
+
+}

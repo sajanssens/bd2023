@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @Stateless
 public class Producer {
 
-    @Inject // from QueueProducer
+    @Inject // produced by AppConfig
     private Queue queue;
 
     @Inject
