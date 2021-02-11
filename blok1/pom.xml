@@ -10,7 +10,7 @@
 
     <parent>
         <groupId>com.infosupport</groupId>
-        <artifactId>bd2020-java-parent</artifactId>
+        <artifactId>bd2021</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
