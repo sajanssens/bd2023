@@ -1,6 +1,7 @@
 package javabd.labs.h7_objectorientation.bank;
 
 public class BankAccount {
+
     private long accountNumber;
     private int balance;
     private double interestRate;

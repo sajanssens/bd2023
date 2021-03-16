@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-class BankTest {
+class BankIT {
 
     private Bank b;
     private BankAccount account1;
     private BankAccount account2;
 
-    @BeforeEach
+    @BeforeEach // @Before
     void setUp() {
         b = new Bank();
 
