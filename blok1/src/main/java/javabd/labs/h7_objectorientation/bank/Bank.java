@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
-    // C+S+T
+
     private List<BankAccount> accounts = new ArrayList<>();
     private long id = 10L;
 
@@ -21,12 +21,18 @@ public class Bank {
         }
     }
 
-    public void printAccounts() {
+    public String accountsToString() {
+        StringBuilder sb = new StringBuilder();
+
         for (BankAccount account : accounts) {
-            System.out.println(account);
+            sb.append(account).append("\n");
         }
-        System.out.println("Total is: " + getTotal());
-        System.out.println();
+        sb.append("Total is: ");
+        sb.append(getTotal());
+        sb.append("\n");
+        sb.append("\n");
+
+        return sb.toString();
     }
 
     public long getTotal() {

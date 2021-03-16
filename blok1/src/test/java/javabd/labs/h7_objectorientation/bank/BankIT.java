@@ -32,9 +32,9 @@ class BankIT {
         account2.deposit(100);
         assertThat(account2.getBalance(), is(400));
 
-        b.printAccounts();
+        System.out.println(b.accountsToString());
         b.transfer(account1, account2, 100);
-        b.printAccounts();
+        System.out.println(b.accountsToString());
         assertThat(account1.getBalance(), is(200));
         assertThat(account2.getBalance(), is(500));
         assertThat(b.getTotal(), is(700L));
@@ -48,7 +48,7 @@ class BankIT {
         assertThat(b.getTotal(), is(600L));
 
         b.transfer(account1, account2, 300);
-        b.printAccounts();
+        System.out.println(b.accountsToString());
         assertThat(account1.getBalance(), is(200));
         assertThat(account2.getBalance(), is(400));
         assertThat(b.getTotal(), is(600L));

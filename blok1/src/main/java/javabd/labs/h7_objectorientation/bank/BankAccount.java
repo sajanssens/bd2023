@@ -30,6 +30,8 @@ public class BankAccount {
         return balance * Math.pow(1 + interestRate / 100, years);
     }
 
+    // -------------
+
     @Override
     public String toString() {
         return "Account " + accountNumber + " has balance: " + balance;
