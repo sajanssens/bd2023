@@ -7,8 +7,24 @@ public class Bank {
 
     private List<BankAccount> accounts = new ArrayList<>();
     private long id = 10L;
+    private String name;
 
     public Bank() {
+
+    }
+
+    public Bank(String eenName) {
+        this.name = eenName;
+    }
+
+    public BankAccount search(long nr) throws AccountNotFoundException {
+        for (BankAccount account : accounts) {
+            if (account.getAccountNumber() == nr) {
+                return account;
+            }
+        }
+
+        throw new AccountNotFoundException("Account met nummer " + nr + " is niet gevonden!");
     }
 
     public void addAccount(BankAccount a) {
