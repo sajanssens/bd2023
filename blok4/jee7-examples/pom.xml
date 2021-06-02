@@ -26,7 +26,7 @@
 
     <modules>
         <module>Asynchronous</module>
-        <module>CDI</module>
+        <module>CDI-EE</module>
         <module>CDI-SE</module>
         <module>CMT</module>
         <module>Complete</module>
@@ -43,6 +43,7 @@
         <module>PrimeFaces</module>
         <module>PrimeFacesProducer</module>
         <module>Timer</module>
+        <module>CDI</module>
     </modules>
 
     <dependencyManagement>
