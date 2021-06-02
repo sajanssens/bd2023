@@ -7,7 +7,7 @@ import java.util.Calendar;
 
 // Also defined in the beans.xml
 @MeasureMethodDuration
-@Interceptor
+@Interceptor // AOP = Aspect Oriented Programming
 public class MethodDurationInterceptor {
 
     @AroundInvoke

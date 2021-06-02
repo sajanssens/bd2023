@@ -11,6 +11,10 @@ public class StringAdderComplete {
 
         checkNegative(numsFiltered, delimiter);
 
+        return sum(delimiter, numsFiltered);
+    }
+
+    private int sum(String delimiter, String numsFiltered) {
         try {
             if (!hasDelimiter(numsFiltered, delimiter)) {
                 return toInt(numsFiltered);

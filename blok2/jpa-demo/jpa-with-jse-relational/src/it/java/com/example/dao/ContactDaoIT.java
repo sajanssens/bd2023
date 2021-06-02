@@ -222,9 +222,9 @@ class ContactDaoIT {
 
     @Test
     void findByPhone() {
+        Contact e = new Contact("B");
         Phone p1 = new Phone("1");
         Phone p2 = new Phone("2");
-        Contact e = new Contact("B");
         e.addPhone(p1);
         e.addPhone(p2);
 

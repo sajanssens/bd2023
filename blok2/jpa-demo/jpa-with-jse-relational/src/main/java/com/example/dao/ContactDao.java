@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -122,6 +123,13 @@ public class ContactDao {
                         "FROM Contact emp " +
                         "JOIN emp.worksAt dep", Tuple.class)
                 .getResultList();
+    }
+    // Native query ---------
+
+    public List<Contact> findByNameNative(String name) {
+        Query query = em.createNativeQuery("SELECT * FROM Contact WHERE C_NAME LIKE ?", Contact.class);
+        query.setParameter(1, name + "%");
+        return query.getResultList();
     }
 
     // Criteria API ---------

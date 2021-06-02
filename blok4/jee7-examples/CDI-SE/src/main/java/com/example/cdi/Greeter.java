@@ -57,9 +57,13 @@ public class Greeter {
         log.info("Hi was called...");
 
         log.info("Firing person event...");
-        personEvent.fire(special);
+        fireEvent();
 
         return getAllGreetings().toString();
+    }
+
+    public void fireEvent() {
+        personEvent.fire(special);
     }
 
     private StringJoiner getAllGreetings() {

@@ -30,6 +30,7 @@
         <module>CDI-SE</module>
         <module>CMT</module>
         <module>Complete</module>
+        <module>depinv</module>
         <module>ejb</module>
         <module>HSQLDB</module>
         <module>JAXRSBasic</module>

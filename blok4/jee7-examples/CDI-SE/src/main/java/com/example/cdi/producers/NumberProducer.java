@@ -11,7 +11,7 @@ import java.util.Random;
 public class NumberProducer {
 
     private final int maxNumber = 100;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     @Produces @RandomNumber int next() { return random.nextInt(maxNumber); }
 

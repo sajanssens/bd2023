@@ -5,6 +5,9 @@ import org.jboss.weld.environment.se.WeldContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.inject.se.SeContainer;
+import javax.enterprise.inject.se.SeContainerInitializer;
+
 public class CDIApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(CDIApplication.class);
@@ -20,7 +23,7 @@ public class CDIApplication {
         // Container will be weld since it sits on the classpath; when omitted, no CDI-container will be found.
         // DisableDiscovery ignores beans.xml; classes can be added manually.
         // SeContainerInitializer initializer = SeContainerInitializer.newInstance();
-        // SeContainer container = initializer/*.disableDiscovery().addPackages(CDIApplication.class)*/.initialize())
+        // SeContainer container2 = initializer.disableDiscovery().addPackages(CDIApplication.class).initialize();
 
         GreeterSimple greeterSimple = container.select(GreeterSimple.class).get();
         String hi = greeterSimple.hi();
