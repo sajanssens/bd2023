@@ -4,7 +4,7 @@ import com.example.dependent.low.Email;
 import com.example.dependent.low.Sms;
 import org.junit.jupiter.api.Test;
 
-import static com.example.dependencyinverted.cdi.util.Values.OK;
+import static com.example.dependencyinverted.cdi.util.Util.OK;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SenderIoCTest {

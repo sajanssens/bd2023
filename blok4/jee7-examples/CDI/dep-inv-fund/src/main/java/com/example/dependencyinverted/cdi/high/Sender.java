@@ -1,6 +1,6 @@
 package com.example.dependencyinverted.cdi.high;
 
-import com.example.dependencyinverted.cdi.util.EM;
+import com.example.dependencyinverted.cdi.util.EMAIL;
 import com.example.dependencyinverted.cdi.util.SMS;
 
 import javax.enterprise.context.Dependent;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.dependencyinverted.cdi.util.Values.streamOf;
+import static com.example.dependencyinverted.cdi.util.Util.streamOf;
 import static java.util.stream.Collectors.joining;
 
 // High level module
@@ -33,14 +33,22 @@ public class Sender {
     private Instance<Sendable> sendableCDIBeans;
 
     // 2. constructor injection
-    @Inject
-    public Sender(@SMS Sendable s) { addSendable(s); }
+    @Inject /* (Take the Default Sendable) */
+    public Sender(Sendable s) { plugin(s); }
 
     // 3. setter/property injection
     @Inject @Any
-    public void setSendable(@EM Sendable s) { addSendable(s); }
+    public void setSendable(Sendable s) { plugin(s); }
 
-    public void addSendable(Sendable s) {
+    // 3. setter/property injection
+    @Inject @Any
+    public void setSMSSendable(@SMS Sendable s) { plugin(s); }
+
+    // 3. setter/property injection
+    @Inject @Any
+    public void setEmailSendable(@EMAIL Sendable s) { plugin(s); }
+
+    public void plugin(Sendable s) {
         // Satisfies:
         // 2. Abstractions should not depend on details. Details should depend on abstractions.
 

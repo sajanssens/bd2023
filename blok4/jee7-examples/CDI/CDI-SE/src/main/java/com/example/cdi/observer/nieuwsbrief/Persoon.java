@@ -1,11 +1,12 @@
-package com.example.cdi.observer;
+package com.example.cdi.observer.nieuwsbrief;
 
+import com.example.cdi.observer.nieuwsbrief.Nieuwsbrief;
 import org.slf4j.Logger;
 
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
-public class Computer {
+public class Persoon {
 
     @Inject Logger log;
 

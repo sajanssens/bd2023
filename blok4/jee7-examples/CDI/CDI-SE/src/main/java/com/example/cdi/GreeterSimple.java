@@ -1,7 +1,7 @@
 package com.example.cdi;
 
 import com.example.cdi.greetings.IGreeting;
-import com.example.cdi.observer.Nieuwsbrief;
+import com.example.cdi.observer.nieuwsbrief.Nieuwsbrief;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Event;

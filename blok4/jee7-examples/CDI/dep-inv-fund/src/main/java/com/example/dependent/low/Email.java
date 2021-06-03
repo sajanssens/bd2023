@@ -1,6 +1,6 @@
 package com.example.dependent.low;
 
-import static com.example.dependencyinverted.cdi.util.Values.OK;
+import static com.example.dependencyinverted.cdi.util.Util.OK;
 
 // Low level module
 public class Email {

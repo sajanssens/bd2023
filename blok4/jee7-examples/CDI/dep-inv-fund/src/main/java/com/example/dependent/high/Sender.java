@@ -1,5 +1,8 @@
 package com.example.dependent.high;
 
+// Inversion of Control (IoC):
+// Laat je dependencies (objecten) instantiëren en aanleveren door iemand anders.
+
 // The Dependency Inversion principle states that:
 // 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
 // 2. Abstractions should not depend on details. Details should depend on abstractions.

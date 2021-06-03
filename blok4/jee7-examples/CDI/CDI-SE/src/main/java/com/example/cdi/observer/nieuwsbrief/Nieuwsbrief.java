@@ -1,4 +1,4 @@
-package com.example.cdi.observer;
+package com.example.cdi.observer.nieuwsbrief;
 
 // Immutable object
 public class Nieuwsbrief {

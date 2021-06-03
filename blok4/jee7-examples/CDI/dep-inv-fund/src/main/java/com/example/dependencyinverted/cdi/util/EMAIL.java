@@ -10,4 +10,4 @@ import static java.lang.annotation.ElementType.*;
 @Qualifier // voor CDI
 @Retention(RetentionPolicy.RUNTIME)
 @Target({TYPE, METHOD, FIELD, PARAMETER})
-public @interface EM {}
+public @interface EMAIL {}

@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 
 import static java.util.stream.StreamSupport.stream;
 
-public final class Values {
-    private Values() { }
+public final class Util {
+    private Util() { }
 
     public static final String OK = "OK";
 

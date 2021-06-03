@@ -10,14 +10,11 @@ import org.slf4j.Logger;
 
 import javax.inject.Inject;
 
-import static com.example.dependencyinverted.cdi.util.Values.OK;
+import static com.example.dependencyinverted.cdi.util.Util.OK;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @EnableAutoWeld
-@AddBeanClasses(Sender.class)
-@AddBeanClasses(Email.class)
-@AddBeanClasses(Sms.class)
-@AddBeanClasses(LoggerProducer.class)
+@AddBeanClasses({Sender.class, Email.class, Sms.class, LoggerProducer.class})
 class SenderTest {
 
     // See src/main/resources/img/DependencyInversion.png

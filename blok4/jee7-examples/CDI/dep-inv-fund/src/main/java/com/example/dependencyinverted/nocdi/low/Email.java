@@ -2,7 +2,7 @@ package com.example.dependencyinverted.nocdi.low;
 
 import com.example.dependencyinverted.nocdi.high.Sendable;
 
-import static com.example.dependencyinverted.cdi.util.Values.OK;
+import static com.example.dependencyinverted.cdi.util.Util.OK;
 
 // Low level module, depends on high level Sendable
 public class Email implements Sendable {

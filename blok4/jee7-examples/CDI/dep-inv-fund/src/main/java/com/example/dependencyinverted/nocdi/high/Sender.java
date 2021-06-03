@@ -11,11 +11,13 @@ public class Sender {
 
     // Satisfies:
     // 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
+    // No references to Email and Sms anymore.
     private final List<Sendable> sendables = new ArrayList<>();
 
     public Sender(Sendable... s) { sendables.addAll(Arrays.asList(s)); }
 
-    public void addSendable(Sendable s) {
+    // Inversion of Control:
+    public void plugin(Sendable s) {
         // Satisfies:
         // 2. Abstractions should not depend on details. Details should depend on abstractions.
 

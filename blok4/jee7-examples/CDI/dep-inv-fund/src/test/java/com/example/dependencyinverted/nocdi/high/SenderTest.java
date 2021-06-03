@@ -4,7 +4,7 @@ import com.example.dependencyinverted.nocdi.low.Email;
 import com.example.dependencyinverted.nocdi.low.Sms;
 import org.junit.jupiter.api.Test;
 
-import static com.example.dependencyinverted.cdi.util.Values.OK;
+import static com.example.dependencyinverted.cdi.util.Util.OK;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SenderTest {
@@ -20,8 +20,8 @@ class SenderTest {
         // dependency injection -------------------
         // (DYDI (Do-it-Yourself Dependency Injection))
         // https://www.baeldung.com/java-ee-cdi#dydi-do-it-yourself-dependency-injection
-        target.addSendable(new Email());
-        target.addSendable(new Sms());
+        target.plugin(new Email());
+        target.plugin(new Sms());
 
         // when
         String s = target.sendAll();

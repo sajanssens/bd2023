@@ -3,6 +3,7 @@ package com.example.dependencyinverted.cdi.util;
 import com.example.dependencyinverted.cdi.high.Sender;
 import org.slf4j.Logger;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 public class Boot {
