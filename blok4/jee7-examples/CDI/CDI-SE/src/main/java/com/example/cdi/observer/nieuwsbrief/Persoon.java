@@ -1,6 +1,5 @@
 package com.example.cdi.observer.nieuwsbrief;
 
-import com.example.cdi.observer.nieuwsbrief.Nieuwsbrief;
 import org.slf4j.Logger;
 
 import javax.enterprise.event.Observes;
