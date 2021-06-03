@@ -22,7 +22,8 @@ public class ProducerIT {
     @Deployment
     public static WebArchive createDeployment() {
         WebArchive archive = ShrinkWrap.create(WebArchive.class)
-                .addPackage(Producer.class.getPackage());
+                .addPackages(true, Producer.class.getPackage())
+                .addAsWebInfResource("beans-alternative.xml", "beans.xml");
 
         System.out.println(archive.toString(true));
         return archive;

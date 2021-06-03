@@ -1,5 +1,8 @@
 package com.example;
 
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class MessageHandlerUntestable implements MessageHandler {
 
     @Override
