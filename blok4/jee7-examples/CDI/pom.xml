@@ -14,9 +14,10 @@
     <packaging>pom</packaging>
 
     <modules>
+
         <module>CDI-EE</module>
         <module>CDI-SE</module>
-        <module>DepInvFundamentals</module>
+        <module>dep-inv-fund</module>
     </modules>
 
 

@@ -1,0 +1,70 @@
+package com.example.dependencyinverted.cdi.high;
+
+import com.example.dependencyinverted.cdi.util.EM;
+import com.example.dependencyinverted.cdi.util.SMS;
+
+import javax.enterprise.context.Dependent;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.dependencyinverted.cdi.util.Values.streamOf;
+import static java.util.stream.Collectors.joining;
+
+// High level module
+@Dependent
+public class Sender {
+
+    // Satisfies:
+    // 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
+    private final List<Sendable> sendables = new ArrayList<>();
+
+    // Dependency Injection -----------------------------
+
+    // 1. field injection
+    // - Exactly one Sender bean
+    // @Inject /*@EM*/  /*@Named("Email")*/
+    private Sendable sendable;
+
+    // - All known Sendable CDI beans
+    @Inject @Any
+    private Instance<Sendable> sendableCDIBeans;
+
+    // 2. constructor injection
+    @Inject
+    public Sender(@SMS Sendable s) { addSendable(s); }
+
+    // 3. setter/property injection
+    @Inject @Any
+    public void setSendable(@EM Sendable s) { addSendable(s); }
+
+    public void addSendable(Sendable s) {
+        // Satisfies:
+        // 2. Abstractions should not depend on details. Details should depend on abstractions.
+
+        // Inversion of control: new is gone. Let someone else supply the object(s)
+        sendables.add(s);
+    }
+
+    public String sendAll() {
+        return sendables.stream()
+                .map(Sendable::send)
+                .collect(joining(", "));
+    }
+
+    public String sendAllCDIBeans() {
+        return streamOf(sendableCDIBeans)
+                .map(Sendable::send)
+                .collect(joining(", "));
+    }
+
+    public <S extends Sendable> String send(Class<S> type) {
+        return sendables.stream()
+                .filter(s -> s.getClass().equals(type))
+                .map(Sendable::send)
+                .collect(joining(", "));
+    }
+
+}
