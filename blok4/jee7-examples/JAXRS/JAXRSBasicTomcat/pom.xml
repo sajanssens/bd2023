@@ -8,7 +8,7 @@
 
     <parent>
         <groupId>com.infosupport</groupId>
-        <artifactId>jee7-examples</artifactId>
+        <artifactId>JAXRS</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

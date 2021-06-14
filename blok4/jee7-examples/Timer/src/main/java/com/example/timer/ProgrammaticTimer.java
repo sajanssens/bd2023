@@ -16,12 +16,13 @@ public class ProgrammaticTimer {
     @PostConstruct
     public void initialize() {
         ticks = 0;
+        // replacement of @Schedule, now programmatically
         ScheduleExpression expression = new ScheduleExpression();
         expression.second("*/1").minute("*").hour("*");
         timerService.createCalendarTimer(expression);
     }
 
-    @Timeout
+    @Timeout // gets fired every second now
     public void callMeWhatYouWill() {
         ticks++;
         System.out.println("ProgrammaticTimer current time: " + Calendar.getInstance().getTime());

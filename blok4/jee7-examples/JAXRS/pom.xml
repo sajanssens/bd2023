@@ -9,15 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>CDI</artifactId>
+    <artifactId>JAXRS</artifactId>
 
     <packaging>pom</packaging>
 
     <modules>
-        <module>CDI-EE</module>
-        <module>CDI-SE</module>
-        <module>dep-inv-fund</module>
+        <module>contactsrest</module>
+        <module>JAXRSBasic</module>
+        <module>JAXRSBasicTomcat</module>
     </modules>
-
 
 </project>

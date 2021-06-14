@@ -16,4 +16,6 @@
         <user name="guest" password="0p3nL1b3ry"/>
     </basicRegistry>
 
+    <httpEndpoint id="defaultHttpEndpoint" httpPort="9081" httpsPort="9444"/>
+
 </server>

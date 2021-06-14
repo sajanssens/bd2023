@@ -2,15 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>JAXRSBasic</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
-
     <parent>
         <groupId>com.infosupport</groupId>
-        <artifactId>jee7-examples</artifactId>
+        <artifactId>JAXRS</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
+    <artifactId>JAXRSBasic</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -36,7 +35,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
         </dependency>
         <dependency>
             <groupId>com.github.phillip-kruger</groupId>

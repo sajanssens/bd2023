@@ -26,15 +26,12 @@
 
     <modules>
         <module>Asynchronous</module>
-        <module>CDI-EE</module>
-        <module>CDI-SE</module>
+        <module>CDI</module>
         <module>CMT</module>
         <module>Complete</module>
-        <module>depinv</module>
         <module>ejb</module>
         <module>HSQLDB</module>
-        <module>JAXRSBasic</module>
-        <module>JAXRSBasicTomcat</module>
+        <module>JAXRS</module>
         <module>JMS</module>
         <module>JSF</module>
         <module>MySQL</module>

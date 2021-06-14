@@ -24,7 +24,6 @@
         <h2.version>1.4.197</h2.version>
         <skipUnitTests>false</skipUnitTests>
         <skipIntegrationTests>false</skipIntegrationTests>
-        <mockito.junit.jupiter.version>3.3.0</mockito.junit.jupiter.version>
     </properties>
 
     <dependencies>
