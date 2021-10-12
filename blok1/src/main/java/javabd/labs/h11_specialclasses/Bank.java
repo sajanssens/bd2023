@@ -85,6 +85,7 @@ public class Bank {
     }
 
     private class SavingAccount extends BankAccount {
+        private float interestRate;
         private SavingAccount(long id) {
             super(id);
         }

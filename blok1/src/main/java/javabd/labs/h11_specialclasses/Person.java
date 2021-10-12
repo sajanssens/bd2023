@@ -1,8 +1,8 @@
 package javabd.labs.h11_specialclasses;
 
+import javabd.labs.h10_inheritance.Human;
 import javabd.labs.h7_objectorientation.Gender;
 import javabd.labs.h7_objectorientation.PersonDiedException;
-import javabd.labs.h10_inheritance.Human;
 
 public class Person extends Human {
     public static final int numberOfPossibleGenders = 3;
@@ -40,7 +40,7 @@ public class Person extends Human {
         return age;
     }
 
-    public String getName() { return name; }
+    public String getName() {return name;}
 
     @Override
     public String toString() {
@@ -81,7 +81,7 @@ public class Person extends Human {
         }
     }
 
-    private class HistoryRecord {
+    private static class HistoryRecord {
         String description;
 
         public HistoryRecord(String descr) {
@@ -89,13 +89,13 @@ public class Person extends Human {
         }
 
         @Override
-        public String toString() { return description; }
+        public String toString() {return description;}
     }
 
     public Human createSubHuman() {
         return new Human() {
             @Override
-            public String greet() { return "Sub is the best."; }
+            public String greet() {return "Sub is the best.";}
         };
     }
 

@@ -34,6 +34,7 @@ public class Calculator {
         return n * factorial(n - 1);
     }
 
+    // 1 1 2 3 5 8 13 ...
     public int fib(int n) {
         if (n <= 2) return 1;
         return fib(n - 1) + fib(n - 2);
