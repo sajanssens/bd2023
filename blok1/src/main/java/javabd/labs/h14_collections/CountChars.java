@@ -1,19 +1,43 @@
 package javabd.labs.h14_collections;
 
 import java.util.*;
+import java.util.function.Predicate;
 
+import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toMap;
 
 public class CountChars {
 
     public static void main(String[] args) {
-        oldStyle();
-        streamingStyle();
+        CountChars countChars = new CountChars();
+        String hello_world = "Hello World";
+
+        // the number of unique characters in the string.
+        var count1 = countChars.countClassicStyle(hello_world);
+        var count2 = countChars.countStreamingStyle(hello_world);
+        System.out.println(count1);
+        System.out.println(count2);
+
+        // "concordance" of characters
+        var concordance1 = countChars.concordanceClassicStyle(hello_world);
+        var concordance2 = countChars.concordanceStreamingStyle(hello_world);
+        System.out.println(concordance1);
+        System.out.println(concordance2);
     }
 
-    private static void oldStyle() {
-        String s = "Hello World";
+    public long countClassicStyle(String hello_world) {
+        Set<String> chars = new HashSet<>();
+        for (String s : hello_world.split("")) {
+            chars.add(s);
+        }
+        return chars.size();
+    }
 
+    public long countStreamingStyle(String hello_world) {
+        return hello_world.chars().distinct().count();
+    }
+
+    public Map<Character, List<Integer>> concordanceClassicStyle(String s) {
         Map<Character, List<Integer>> map = new HashMap<>();
 
         for (int i = 0; i < s.length(); i++) {
@@ -21,7 +45,7 @@ public class CountChars {
             if (c == ' ') continue;
             map.put(c, getIndexes(s, c));
         }
-        System.out.println(map);
+        return map;
     }
 
     private static List<Integer> getIndexes(String s, char c) {
@@ -34,16 +58,15 @@ public class CountChars {
         return indexes;
     }
 
-    private static void streamingStyle() {
-        String input = "Hello World";
+    public Map<String, List<Integer>> concordanceStreamingStyle(String input) {
+        return stream(input.split(""))
+                .distinct()
+                .filter(space())
+                .collect(toMap(s -> s, s -> getIndexes(input, toChar(s))));
+    }
 
-        String[] letters = input.split("");
-        Map<String, List<Integer>> map =
-                Arrays.stream(letters)
-                        .distinct()
-                        .filter(s -> !s.equals(" "))
-                        .collect(toMap(s -> s, s -> getIndexes(input, toChar(s))));
-        System.out.println(map);
+    private Predicate<String> space() {
+        return s -> !s.equals(" ");
     }
 
     private static char toChar(String c) {

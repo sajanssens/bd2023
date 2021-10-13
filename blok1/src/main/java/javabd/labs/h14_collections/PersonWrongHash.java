@@ -3,6 +3,8 @@ package javabd.labs.h14_collections;
 import javabd.labs.h10_inheritance.Human;
 import javabd.labs.h7_objectorientation.Gender;
 
+import java.util.Objects;
+
 public class PersonWrongHash extends Human {
 
     private String name;
@@ -27,11 +29,12 @@ public class PersonWrongHash extends Human {
         return this.name.equals(other.name) && this.age == other.age;
     }
 
-    // NO HASHCODE IS BAD because now every object gets a unique hash even though they are equal according to equals.
-    // See corresponding test.
-    // @Override public int hashCode() {
-    //     return Objects.hash(name, age);
-    // }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age); // correct
+        // return 1; // works correct but not efficient
+        // return Objects.hash(name, age, gender); // incorrect: persons with same name and age will be added to hashset.
+    }
 
     @Override
     public String greet() {

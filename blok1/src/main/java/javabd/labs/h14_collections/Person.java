@@ -5,9 +5,10 @@ import javabd.labs.h7_objectorientation.Gender;
 import javabd.labs.h7_objectorientation.PersonDiedException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class Person extends Human {
+public class Person extends Human implements Comparable<Person>, Iterable<Person.HistoryRecord> {
     public static final int numberOfPossibleGenders = 3;
 
     private String name;
@@ -42,7 +43,7 @@ public class Person extends Human {
         return age;
     }
 
-    public String getName() { return name; }
+    public String getName() {return name;}
 
     @Override
     public String toString() {
@@ -94,7 +95,34 @@ public class Person extends Human {
         }
     }
 
-    private class HistoryRecord {
+    @Override
+    public int compareTo(Person other) {
+        // moet iets positiefs teruggeven als this>other
+        // moet iets negatiefs teruggeven als o1<o2
+        // moet nul teruggeven als gelijk
+
+        // we sort persons by age
+        if (this.age > other.age) return +1;
+        if (this.age < other.age) return -1;
+        return 0;
+    }
+
+    @Override
+    public Iterator<HistoryRecord> iterator() {
+        return new Iterator<>() {
+            private int index = 0;
+
+            @Override public boolean hasNext() {
+                return index < history.size();
+            }
+
+            @Override public HistoryRecord next() {
+                return history.get(index++);
+            }
+        };
+    }
+
+    static class HistoryRecord {
         String description;
 
         public HistoryRecord(String descr) {
@@ -102,13 +130,13 @@ public class Person extends Human {
         }
 
         @Override
-        public String toString() { return description; }
+        public String toString() {return description;}
     }
 
     public Human createSubHuman() {
         return new Human() {
             @Override
-            public String greet() { return "Sub is the best."; }
+            public String greet() {return "Sub is the best.";}
         };
     }
 
