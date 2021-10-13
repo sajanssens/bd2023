@@ -1,57 +1,59 @@
 package unittesting.labs.lab2;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import unittesting.slides.mocking.all.lab.InvalidLocationException;
-import unittesting.slides.mocking.all.lab.TrajectEenhedenNaarPrijsService;
-import unittesting.slides.mocking.all.lab.TrajectNaarTrajectEenhedenService;
+import unittesting.labs.lab2.mocking.lab.PrijsService;
+import unittesting.labs.lab2.mocking.lab.ZoneService;
 import unittesting.slides.mocking.all.lab.TrajectPrijsService;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.AdditionalMatchers.gt;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TrajectPrijsServiceTest {
 
-    // @Mock
-    private TrajectNaarTrajectEenhedenService trajectNaarTrajectEenhedenService = mock(TrajectNaarTrajectEenhedenService.class);
     @Mock
-    private TrajectEenhedenNaarPrijsService trajectEenhedenNaarPrijsService;
+    private ZoneService zoneService;
+    @Mock
+    private PrijsService prijsService;
 
+    @InjectMocks
     private TrajectPrijsService service;
-
-    @BeforeEach
-    public void setup() {
-        this.service = new TrajectPrijsService();
-        service.setTrajectEenhedenNaarPrijsService(this.trajectEenhedenNaarPrijsService);
-        service.setTrajectNaarTrajectEenhedenService(this.trajectNaarTrajectEenhedenService);
-    }
 
     @Test
     void getTrajectPrijs() {
-        // given
-        when(trajectNaarTrajectEenhedenService.getTrajectEenheden(any(), eq("UT"))).thenReturn(5);
-        when(trajectEenhedenNaarPrijsService.getPriceTrajectEenheden(eq(5))).thenReturn(4);
+        // order from generic to specific!
+        when(zoneService.getAantalZones(anyString(), anyString())).thenReturn(10);
+        when(zoneService.getAantalZones(eq("UTR"), eq("AMS"))).thenReturn(4);
+        when(zoneService.getAantalZones(eq("AMS"), eq("DHG"))).thenReturn(5);
 
-        // when
-        int trajectPrijs = service.getTrajectPrijs("AM", "UT");
+        when(prijsService.getZoneprijs(eq(4))).thenReturn(6);
+        when(prijsService.getZoneprijs(eq(5))).thenReturn(5);
+        when(prijsService.getZoneprijs(gt(5))).thenReturn(3);
 
-        // then
-        assertThat(trajectPrijs, is(20));
+        double trajectPrijs = service.getTrajectPrijs("GRO", "LEE");
+        assertThat(trajectPrijs, is(30d));
+
+        trajectPrijs = service.getTrajectPrijs("UTR", "AMS");
+        assertThat(trajectPrijs, is(24d));
+
+        trajectPrijs = service.getTrajectPrijs("AMS", "DHG");
+        assertThat(trajectPrijs, is(25d));
+
+        verify(zoneService, times(3)).getAantalZones(anyString(), anyString());
+        verify(prijsService, times(3)).getZoneprijs(anyInt());
     }
 
     @Test
     void getTrajectPrijsInvalidLocation() {
-        //given
-        when(trajectNaarTrajectEenhedenService.getTrajectEenheden(eq("XX"), anyString())).thenThrow(new InvalidLocationException());
-
-        assertThrows(/*then*/ InvalidLocationException.class, () -> /*when: */ service.getTrajectPrijs("XX", "UT"));
+        assertThrows(IllegalArgumentException.class, () -> service.getTrajectPrijs("XX", "UTR"));
+        assertThrows(IllegalArgumentException.class, () -> service.getTrajectPrijs("UTR", "XX"));
     }
 }
