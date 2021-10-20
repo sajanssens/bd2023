@@ -9,7 +9,7 @@ import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.AddPackages;
 import org.jboss.weld.junit5.auto.EnableAlternatives;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -23,9 +23,7 @@ import static com.example.util.EntityManagerFactory.em;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @EnableAutoWeld
 @AddPackages(App.class)
@@ -39,7 +37,7 @@ class ContactDaoIT {
     @Inject
     private ContactDao dao;
 
-    @After
+    @AfterEach
     public void teardown() {
         // If some tests have open transactions because of exceptions (like in testSaveDetachedEntityWithoutCatchAndRollback)
         if (em.getTransaction().isActive()) {
