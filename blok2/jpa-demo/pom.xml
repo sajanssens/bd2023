@@ -16,8 +16,8 @@
 
     <modules>
         <module>jpa-best-practices</module>
-        <module>jpa-with-jse</module>
-        <module>jpa-with-jse-relational</module>
+        <module>jpa-with-jse-basic</module>
+        <module>jpa-with-jse-advanced</module>
     </modules>
 
     <properties>
