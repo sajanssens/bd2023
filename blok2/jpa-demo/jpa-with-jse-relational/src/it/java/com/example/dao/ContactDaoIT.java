@@ -46,9 +46,38 @@ class ContactDaoIT {
     }
 
     @Test
-    void whenEmployeeIsInsertedItGetsAnId() {
-        dao.insert(new Contact("A"));
-        Assertions.assertThat(dao.selectAll()).allMatch(e -> e.getId() != 0);
+    void whenContactIsInsertedItGetsAnId() {
+        dao.save(new Contact("A"));
+        Assertions.assertThat(dao.findAll()).allMatch(e -> e.getId() != 0);
+    }
+
+    @Test
+    void whenContactIsBossItIsSavedAndQueried() {
+        Contact bram = new Contact("Bram", new Date());
+        Department kc = new Department("Kenniscentrum");
+        bram.setBossOfDepartment(kc);
+
+        dao.save(bram);
+
+        Contact boss = dao.findBoss("Kenniscentrum");
+        assertThat(boss.getName(), is("Bram"));
+    }
+
+    @Test
+    void whenContactsHaveParkingSpaceTheyCanBeFound() {
+        ParkingSpace ps = ParkingSpace.builder().number(1).build();
+
+        Contact bram = new Contact("Bram", new Date());
+        Contact mieke = new Contact("Mieke", new Date());
+
+        bram.setParkingSpace(ps);
+        mieke.setParkingSpace(ps);
+
+        dao.save(bram);
+        dao.save(mieke);
+
+        List<Contact> contacts = dao.findByParkingSpace(ps);
+        assertThat(contacts.size(), is(2));
     }
 
     @Test
@@ -69,43 +98,46 @@ class ContactDaoIT {
         bram.addWorksAt(new Department("HR"));
 
         assertThat(bram.getId(), is(0L));
-        dao.insert(bram);
+        dao.save(bram);
         assertThat(bram.getId(), is(not(0L))); // bram got an id
 
-        Contact refreshedBram = dao.select(bram.getId());
+        Contact refreshedBram = dao.find(bram.getId());
         assertThat(refreshedBram.getId(), is(not(0)));
         assertThat(refreshedBram.getName(), is("Bram"));
         assertThat(refreshedBram.getBossOfDepartment().getName(), is("Kenniscentrum"));
         assertThat(refreshedBram.getParkingSpace().getId(), is(not(0)));
+
+        Contact boss = dao.findBoss("Kenniscentrum");
+        assertThat(boss.getName(), is("Bram"));
     }
 
     @Test
     public void testSaveDetachedEntityWithoutCatchAndRollback() {
         Contact bram = new Contact("Bram", new Date());
-        dao.insert(bram);
+        dao.save(bram);
 
         assertTrue(isDetached(bram));
 
         bram.setName("Piet");
-        assertThrows(PersistenceException.class, () -> dao.insertWithoutCatchAndRollback(bram)); // cannot save a detached entity; exception is thrown
+        assertThrows(PersistenceException.class, () -> dao.saveWithoutCatchAndRollback(bram)); // cannot save a detached entity; exception is thrown
 
     }
 
     @Test
     public void whenContactWithInvalidNameIsInsertedItIsRefused() {
         Contact bramTooLong = new Contact("Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram Bram bram bram ", new Date());
-        assertThrows(RuntimeException.class, () -> dao.insert(bramTooLong));
+        assertThrows(RuntimeException.class, () -> dao.save(bramTooLong));
     }
 
     @Test
     public void whenContactWithInvalidEmailIsInsertedItIsRefused() {
         Contact bramInvalidEmail = new Contact("Bram", new Date());
         bramInvalidEmail.setEmailAddress("bram_at_test.com");
-        assertThrows(RuntimeException.class, () -> dao.insert(bramInvalidEmail));
+        assertThrows(RuntimeException.class, () -> dao.save(bramInvalidEmail));
     }
 
     @Test
-    void whenEmployeesAreQueriedTheirPhonesAreLazilyLoaded() {
+    void whenContactsAreQueriedTheirPhonesAreLazilyLoaded() {
         Contact a = new Contact("A");
         a.addPhone(new Phone("1"));
         a.addPhone(new Phone("2"));
@@ -114,17 +146,17 @@ class ContactDaoIT {
         b.addPhone(new Phone("3"));
         b.addPhone(new Phone("4"));
 
-        dao.insert(a);
-        dao.insert(b);
+        dao.save(a);
+        dao.save(b);
 
-        for (Contact employee : dao.findWithPhones(false)) {
-            log(employee);
-            employee.getPhones().forEach(p -> log(p.getNumber()));
+        for (Contact contact : dao.findWithPhones(false)) {
+            log(contact);
+            contact.getPhones().forEach(p -> log(p.getNumber()));
         }
 
-        for (Contact employee : dao.findWithPhones(true)) {
-            log(employee);
-            employee.getPhones().forEach(p -> log(p.getNumber()));
+        for (Contact contact : dao.findWithPhones(true)) {
+            log(contact);
+            contact.getPhones().forEach(p -> log(p.getNumber()));
         }
     }
 
@@ -132,9 +164,9 @@ class ContactDaoIT {
     public void findAllDemo() {
         Contact bram = new Contact("Bram", new Date());
 
-        List<Contact> beforeInsert = dao.selectAll();
-        dao.insert(bram);
-        List<Contact> afterInsert = dao.selectAll();
+        List<Contact> beforeInsert = dao.findAll();
+        dao.save(bram);
+        List<Contact> afterInsert = dao.findAll();
 
         assertTrue(afterInsert.size() > beforeInsert.size());
     }
@@ -143,15 +175,15 @@ class ContactDaoIT {
     public void testSaveFindAndUpdate() {
         Contact refreshedBram;
         Contact bram = new Contact("Bram", new Date());
-        dao.insert(bram);
+        dao.save(bram);
 
         assertTrue(isDetached(bram));
         bram.setName("Piet");
-        refreshedBram = dao.select(bram.getId());
+        refreshedBram = dao.find(bram.getId());
         assertThat(refreshedBram.getName(), is(not("Piet"))); // change was not saved since bram is detached and not merged yet
 
         dao.update(bram);
-        refreshedBram = dao.select(bram.getId());
+        refreshedBram = dao.find(bram.getId());
         assertThat(refreshedBram.getName(), is("Piet")); // change was saved
     }
 
@@ -160,7 +192,7 @@ class ContactDaoIT {
         Contact refreshedBram;
         Contact bram = new Contact("Bram", new Date());
 
-        dao.insert(bram);
+        dao.save(bram);
         assertThat(bram.getName(), is("Bram")); // contact was saved
 
         refreshedBram = dao.updateFirstname(bram.getId(), "Piet");
@@ -170,11 +202,11 @@ class ContactDaoIT {
     @Test
     public void testRemove() {
         Contact bram = new Contact("Bram", new Date());
-        dao.insert(bram);
+        dao.save(bram);
 
-        List<Contact> beforeRemove = dao.selectAll();
-        dao.delete(bram.getId());
-        List<Contact> afterRemove = dao.selectAll();
+        List<Contact> beforeRemove = dao.findAll();
+        dao.remove(bram.getId());
+        List<Contact> afterRemove = dao.findAll();
 
         assertTrue(afterRemove.size() < beforeRemove.size());
     }
@@ -188,17 +220,17 @@ class ContactDaoIT {
         // given a new and saved Contact with resume
         Contact e = new Contact("emp");
         e.setResume("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent non tempus enim. Duis eget sapien enim. Morbi elementum dictum tempus. Sed posuere tortor mauris, quis vehicula tellus congue non.");
-        dao.insert(e);
+        dao.save(e);
 
         // when we get it from the db and it is detached
-        Contact detachedEmp = dao.select(e.getId());
+        Contact detachedEmp = dao.find(e.getId());
         // then resume is not loaded and cannot be loaded anymore
         assertTrue(isDetached(detachedEmp));
         assertThrows(LazyInitializationException.class, detachedEmp::getResume);
 
         // but
         // when we keep it managed
-        Contact managedEmp = dao.select(e.getId());
+        Contact managedEmp = dao.find(e.getId());
         // then the resume can be loaded
         assertFalse(isDetached(managedEmp));
         String resume = managedEmp.getResume(); // get resume from managed Contact
@@ -211,9 +243,9 @@ class ContactDaoIT {
         Contact a = new Contact("A");
         a.addPhone(new Phone("1"));
         a.addPhone(new Phone("2"));
-        dao.insert(a);
+        dao.save(a);
 
-        Contact e = dao.select(1);
+        Contact e = dao.find(1);
 
         assertThrows(LazyInitializationException.class, () -> e.getPhones().get(0));
     }
@@ -226,14 +258,14 @@ class ContactDaoIT {
         e.addPhone(p1);
         e.addPhone(p2);
 
-        dao.insert(e);
+        dao.save(e);
 
         List<Contact> byPhone = dao.findByPhone(p1.getId());
         Assertions.assertThat(byPhone.get(0).getId()).isEqualTo(e.getId());
     }
 
-    private void log(Object o) { log.info(o + ""); }
+    private void log(Object o) {log.info(o + "");}
 
-    private boolean isDetached(Contact c) { return !em.contains(c); }
+    private boolean isDetached(Contact c) {return !em.contains(c);}
 
 }
