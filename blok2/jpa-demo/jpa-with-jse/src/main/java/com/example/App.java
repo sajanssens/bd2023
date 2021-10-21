@@ -16,6 +16,7 @@ public class App {
     private static void test() {
         ContactDao dao = new ContactDao(em);
 
+        System.out.println("save...");
         Contact bram = new Contact("Bram", new Date());
         dao.save(bram);
 
@@ -36,7 +37,7 @@ public class App {
         Contact arie = dao.updateFirstname(contact1.getId(), "arie");
         System.out.println("after update: " + arie);
 
-        System.out.println("updating complete object...");
+        System.out.println("updating full object...");
         System.out.println("before update: " + arie);
         arie.setFirstname("harry");
 
