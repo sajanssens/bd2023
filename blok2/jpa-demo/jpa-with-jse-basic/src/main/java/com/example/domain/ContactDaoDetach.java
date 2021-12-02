@@ -43,7 +43,7 @@ public class ContactDaoDetach {
     }
 
     public Contact updateFirstname(long id, String fn) {
-        Contact contact = find(id);
+        Contact contact = find(id); // makes contact managed
         if (contact != null) {
             em.getTransaction().begin();
             contact.setFirstname(fn);

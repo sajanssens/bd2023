@@ -10,7 +10,7 @@ public class PersonListener {
 
     @Inject Logger log;
 
-    public void onHi(@Observes Person p) {
+    public void handleEvent(@Observes Person p) {
         log.info("Event caught: " + p.name);
     }
 }

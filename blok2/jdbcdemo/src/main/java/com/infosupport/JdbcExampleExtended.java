@@ -45,19 +45,19 @@ public class JdbcExampleExtended {
     }
 
     private void insertSomeRows(Statement statement, int randomAge) throws SQLException {
-        int i = statement.executeUpdate("insert into PERSON VALUES ('Bram', " + randomAge + ")");
-        System.out.println("Rows i inserted: " + i);
+        int i = statement.executeUpdate("INSERT INTO PERSON(name, age) VALUES ('Bram', " + randomAge + ")");
+        System.out.println("Rows inserted: " + i);
     }
 
     private void insertSomeRowsTransactional(Connection connection, int randomAge, Statement statement) throws SQLException {
         try {
             connection.setAutoCommit(false);
 
-            int i = statement.executeUpdate("insert into PERSON VALUES ('Bram', " + randomAge + ")");
+            int i = statement.executeUpdate("insert into PERSON(name, age) VALUES ('Bram42', " + randomAge + ")");
             System.out.println("Rows i inserted: " + i);
 
             // typo in query: abort transaction via catch --> rollback
-            int j = statement.executeUpdate("ins ert into PERSON VALUES ('Bram2', " + randomAge + ")");
+            int j = statement.executeUpdate("insert into PERSON VALUES ('Bram2', " + randomAge + ")");
             System.out.println("Rows j inserted: " + j);
 
             connection.commit(); // if everything was ok.

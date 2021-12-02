@@ -3,8 +3,7 @@
 			 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 			 version="2.0">
-	<persistence-unit name="MyPersistenceUnit"
-					  ="JTA">
+	<persistence-unit name="MyPersistenceUnit"="JTA">
 		<jta-data-source>jdbc/MySQLDataSource</jta-data-source>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="create-tables" />

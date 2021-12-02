@@ -10,10 +10,12 @@ import java.util.*;
 
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.InheritanceType.SINGLE_TABLE;
 import static javax.persistence.TemporalType.DATE;
 
 @Entity
 @NamedQuery(name = "findAll", query = "select c from Contact c")
+@Inheritance(strategy = SINGLE_TABLE)
 public class Contact extends AbstractEntity {
 
     // @Basic is present implicitly on each field

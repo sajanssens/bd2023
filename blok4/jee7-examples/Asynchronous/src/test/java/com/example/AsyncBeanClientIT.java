@@ -28,6 +28,7 @@ public class AsyncBeanClientIT {
 	@Test
 	public void testProcessWork() throws Exception {
 		long elapsedTime = asyncBeanClient.processWork("Very important data");
+		Thread.sleep(6000);
 		assertTrue(elapsedTime <= 1000); // Less than 1 second
 	}
 

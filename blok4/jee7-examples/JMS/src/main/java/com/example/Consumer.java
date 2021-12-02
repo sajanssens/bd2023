@@ -24,7 +24,7 @@ public class Consumer implements MessageListener {
         try {
             String m = message.getBody(String.class);
             System.out.println("Message received: " + m);
-            handler.doSomething(m);
+            handler.handleMessage(m);
         } catch (JMSException ex) {
             throw new RuntimeException(ex);
         }

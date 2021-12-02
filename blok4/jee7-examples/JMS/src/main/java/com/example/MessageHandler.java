@@ -1,5 +1,5 @@
 package com.example;
 
 public interface MessageHandler {
-    void doSomething(String text);
+    void handleMessage(String text);
 }

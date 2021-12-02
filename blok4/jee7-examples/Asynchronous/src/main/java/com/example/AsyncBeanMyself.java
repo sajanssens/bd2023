@@ -3,11 +3,12 @@ package com.example;
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 public class AsyncBeanMyself {
 
-	@EJB
+	@Inject
 	AsyncBeanMyself myself;
 	
 	public long processWork(String data) throws InterruptedException {

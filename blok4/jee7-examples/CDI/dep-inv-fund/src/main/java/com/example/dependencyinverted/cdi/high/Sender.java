@@ -34,19 +34,19 @@ public class Sender {
 
     // 2. constructor injection
     @Inject /* (Take the Default Sendable) */
-    public Sender(Sendable s) { plugin(s); }
+    public Sender(Sendable s) {plugin(s);}
 
     // 3. setter/property injection
     @Inject @Any
-    public void setSendable(Sendable s) { plugin(s); }
+    public void setSendable(Sendable s) {plugin(s);}
 
     // 3. setter/property injection
     @Inject @Any
-    public void setSMSSendable(@SMS Sendable s) { plugin(s); }
+    public void setSMSSendable(@SMS Sendable s) {plugin(s);}
 
     // 3. setter/property injection
     @Inject @Any
-    public void setEmailSendable(@EMAIL Sendable s) { plugin(s); }
+    public void setEmailSendable(@EMAIL Sendable s) {plugin(s);}
 
     public void plugin(Sendable s) {
         // Satisfies:
@@ -74,5 +74,4 @@ public class Sender {
                 .map(Sendable::send)
                 .collect(joining(", "));
     }
-
 }

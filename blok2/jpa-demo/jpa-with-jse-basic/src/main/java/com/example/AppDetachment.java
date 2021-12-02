@@ -13,29 +13,29 @@ public class AppDetachment {
     private static final EntityManager em = Persistence.createEntityManagerFactory("ContactServiceMySQL").createEntityManager();
 
     private static void test() {
-        ContactDaoDetach service = new ContactDaoDetach(em);
+        ContactDaoDetach dao = new ContactDaoDetach(em);
 
         Contact bram = new Contact("Bram", new Date());
-        service.save(bram);
+        dao.save(bram); // bram is detached
 
         System.out.println("updating 1...");
         System.out.println(bram);
-        Contact arie = service.updateFirstname(1, "arie"); // works because we do a find first
-        System.out.println(arie);
+        Contact arie = dao.updateFirstname(1, "arie"); // works because we do a find first
+        System.out.println(arie); // arie is detached
 
         System.out.println("updating 2...");
         System.out.println(arie);
         arie.setFirstname("harry");
 
         // save won't work now anymore, because entity is detached
-        service.save(arie);
-        Contact harryOrArie = service.find(1);
+        dao.save(arie);
+        Contact harryOrArie = dao.find(1); // harryOrArie is managed
         System.out.println(harryOrArie); // will stay arie
 
         // merge will update arie to harry
-        Contact harry = service.update(arie);
+        Contact harry = dao.update(arie);
         System.out.println(harry);
     }
 
-    public static void main(String[] args) { test(); }
+    public static void main(String[] args) {test();}
 }

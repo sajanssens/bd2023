@@ -26,7 +26,7 @@ public class AsyncBeanMyselfIT {
     }
 
 	@Test
-	public void testGetStudents() throws Exception {
+	public void testProcessWork() throws Exception {
 		long elapsedTime = asyncBeanMyself.processWork("Very important data");
 		assertTrue(elapsedTime < 1000); // less than 1 second
 	}

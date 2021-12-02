@@ -6,7 +6,7 @@ import javax.enterprise.context.ApplicationScoped;
 public class MessageHandlerUntestable implements MessageHandler {
 
     @Override
-    public void doSomething(String text) {
+    public void handleMessage(String text) {
         System.out.println("ExampleMessageHandlerUntestable Text was: " + text);
         // doing a lot of work
         try {

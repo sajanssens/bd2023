@@ -12,7 +12,7 @@ public class MessageHandlerTestable implements MessageHandler {
 
     private BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
-    public void doSomething(String text) {
+    public void handleMessage(String text) {
         System.out.println("ExampleMessageHandlerTestable Text was: " + text);
         queue.add(text);
     }
