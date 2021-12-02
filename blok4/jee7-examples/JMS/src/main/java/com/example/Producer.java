@@ -9,7 +9,7 @@ import javax.jms.JMSProducer;
 import javax.jms.Queue;
 import java.time.LocalTime;
 
-@Stateless
+@Stateless // gewone stateless session bean (EJB)
 public class Producer {
 
     @Inject
