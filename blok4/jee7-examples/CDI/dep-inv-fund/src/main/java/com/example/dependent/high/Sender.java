@@ -1,12 +1,12 @@
 package com.example.dependent.high;
 
-// Inversion of Control (IoC):
-// Laat je dependencies (objecten) instantiëren en aanleveren door iemand anders.
-// Dependency injection is een vorm van IoC.
+// A. Inversion of Control (IoC):
+//      Laat je dependencies (objecten) instantiëren en aanleveren door iemand anders.
+//      Dependency injection is een vorm van IoC.
 
-// The Dependency Inversion principle states that:
-// 1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
-// 2. Abstractions should not depend on details. Details should depend on abstractions.
+// B. The Dependency Inversion principle states that:
+//      1. High-level modules should not depend on low-level modules. Both should depend on abstractions.
+//      2. Abstractions should not depend on details. Details should depend on abstractions.
 
 import com.example.dependent.low.Email;
 import com.example.dependent.low.Sms;

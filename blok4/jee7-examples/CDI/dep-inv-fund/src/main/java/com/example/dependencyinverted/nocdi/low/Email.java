@@ -10,7 +10,7 @@ public class Email implements Sendable {
     private String run() {
         System.out.println("sending email.....");
         // ....
-        return OK;
+        return "Email" + OK;
     }
 
     @Override

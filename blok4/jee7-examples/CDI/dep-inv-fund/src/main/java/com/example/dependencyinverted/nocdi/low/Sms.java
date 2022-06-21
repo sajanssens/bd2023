@@ -10,7 +10,7 @@ public class Sms implements Sendable {
     private String stuur() {
         System.out.println("sending sms.....");
         // ....
-        return OK;
+        return "Sms" + OK;
     }
 
     @Override

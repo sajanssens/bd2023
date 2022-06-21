@@ -7,13 +7,24 @@ import org.junit.jupiter.api.Test;
 import static com.example.dependencyinverted.cdi.util.Util.OK;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SenderIoCTest {
-
-    SenderIoC target = new SenderIoC();
+class SenderWithDITest {
 
     @Test
-    void sendAll() {
+    void sendAllConstructorDI() {
         // given
+        SenderWithDI target = new SenderWithDI(new Email(), new Sms());
+
+        // when
+        String s = target.sendAll();
+
+        // then
+        assertThat(s).contains(OK);
+    }
+
+    @Test
+    void sendAllSetterDI() {
+        // given
+        SenderWithDI target = new SenderWithDI();
         target.setEmail(new Email());
         target.setSms(new Sms());
 
@@ -23,5 +34,4 @@ class SenderIoCTest {
         // then
         assertThat(s).contains(OK);
     }
-
 }

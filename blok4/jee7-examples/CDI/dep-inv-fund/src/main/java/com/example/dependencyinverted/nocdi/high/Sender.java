@@ -7,6 +7,7 @@ import java.util.List;
 import static java.util.stream.Collectors.joining;
 
 // High level module
+// See Main and test class
 public class Sender {
 
     // Satisfies:
@@ -26,9 +27,15 @@ public class Sender {
     }
 
     public String sendAll() {
-        return sendables.stream()
-                .map(Sendable::send)
-                .collect(joining(", "));
+        String result = "";
+        for (Sendable sendable : sendables) {
+            String s = sendable.send();
+            result = result + s;
+        }
+        return result;
+        // return sendables.stream()
+        //         .map(Sendable::send)
+        //         .collect(joining(", "));
     }
 
     public <S extends Sendable> String send(Class<S> type) {

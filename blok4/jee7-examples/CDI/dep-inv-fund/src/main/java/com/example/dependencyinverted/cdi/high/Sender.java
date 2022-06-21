@@ -41,11 +41,11 @@ public class Sender {
     public void setSendable(Sendable s) {plugin(s);}
 
     // 3. setter/property injection
-    @Inject @Any
+    @Inject
     public void setSMSSendable(@SMS Sendable s) {plugin(s);}
 
     // 3. setter/property injection
-    @Inject @Any
+    @Inject
     public void setEmailSendable(@EMAIL Sendable s) {plugin(s);}
 
     public void plugin(Sendable s) {
