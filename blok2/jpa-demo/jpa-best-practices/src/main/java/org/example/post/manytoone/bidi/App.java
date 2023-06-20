@@ -2,11 +2,14 @@ package org.example.post.manytoone.bidi;
 
 import org.example.AppInit;
 
-import static org.example.Config.*;
+import static org.example.Config.manyToOneBidi;
+import static org.example.Config.merge;
+import static org.example.Config.persist;
 
 public class App extends AppInit {
 
     // Same as onetomany.bidi
+    // cascade delete from post to comments is managed by cascadetype in post
     private void start() {
         Post post = Post.builder().title("first").build();
 
